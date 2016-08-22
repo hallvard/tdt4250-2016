@@ -46,7 +46,7 @@ public class OsmResourceImpl extends XMLResourceImpl {
 				}
 			}
 		}
-		return null;
+		return idObject;
 	}
 
 	public static Tagged getTagged(String id, Iterable<? extends Tagged> tags) {
