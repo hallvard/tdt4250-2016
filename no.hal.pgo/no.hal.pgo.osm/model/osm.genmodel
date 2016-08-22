@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/no.hal.pgo.osm/src" modelPluginID="no.hal.pgo.osm"
+    modelName="Osm" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>osm.ecore</foreignModel>
+  <genPackages prefix="Osm" basePackage="no.hal.pgo" resource="XML" disposableProviderFactory="true"
+      ecorePackage="osm.ecore#/">
+    <genClasses ecoreClass="osm.ecore#//Node"/>
+    <genClasses ecoreClass="osm.ecore#//GeoLocation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//GeoLocation/latitude"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//GeoLocation/longitude"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//GeoLocated">
+      <genOperations ecoreOperation="osm.ecore#//GeoLocated/getLatitude"/>
+      <genOperations ecoreOperation="osm.ecore#//GeoLocated/getLongitude"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Way">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference osm.ecore#//Way/nodes"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//NodeRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference osm.ecore#//NodeRef/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//OSMElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/visible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/timestamp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/changeset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSMElement/uid"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="osm.ecore#//Tagged">
+      <genOperations ecoreOperation="osm.ecore#//Tagged/hasTag">
+        <genParameters ecoreParameter="osm.ecore#//Tagged/hasTag/key"/>
+      </genOperations>
+      <genOperations ecoreOperation="osm.ecore#//Tagged/getTag">
+        <genParameters ecoreParameter="osm.ecore#//Tagged/getTag/key"/>
+      </genOperations>
+      <genOperations ecoreOperation="osm.ecore#//Tagged/hasTag.1">
+        <genParameters ecoreParameter="osm.ecore#//Tagged/hasTag.1/key"/>
+        <genParameters ecoreParameter="osm.ecore#//Tagged/hasTag.1/value"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Tags">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//Tags/tags"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Tag">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Tag/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Tag/value"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Relation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//Relation/members"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Member">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference osm.ecore#//Member/reference"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Member/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Member/role"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Bounds">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Bounds/minLatitute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Bounds/minLongitude"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Bounds/maxLatitude"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Bounds/maxLongitude"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//OSM">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//OSM/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//OSM/ways"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//OSM/relations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference osm.ecore#//OSM/bounds"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSM/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//OSM/generator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//OSM/notes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference osm.ecore#//OSM/metaData"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//Note">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//Note/contents"/>
+    </genClasses>
+    <genClasses ecoreClass="osm.ecore#//MetaData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute osm.ecore#//MetaData/osmBase"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
