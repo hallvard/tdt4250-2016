@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import no.hal.pgo.osm.Node;
 import no.hal.pgo.osm.NodeRef;
 import no.hal.pgo.osm.OsmPackage;
+import no.hal.pgo.osm.geoutil.LatLong;
 
 /**
  * <!-- begin-user-doc -->
@@ -104,18 +105,8 @@ public class NodeRefImpl extends MinimalEObjectImpl.Container implements NodeRef
 	 * @generated NOT
 	 */
 	@Override
-	public float getLatitude() {
-		return (getRef() != null ? getRef().getLatitude() : Float.NaN);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	@Override
-	public float getLongitude() {
-		return (getRef() != null ? getRef().getLongitude() : Float.NaN);
+	public LatLong getLatLong() {
+		return (getRef() != null ? getRef().getLatLong() : null);
 	}
 
 	/**
@@ -185,10 +176,8 @@ public class NodeRefImpl extends MinimalEObjectImpl.Container implements NodeRef
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-			case OsmPackage.NODE_REF___GET_LATITUDE:
-				return getLatitude();
-			case OsmPackage.NODE_REF___GET_LONGITUDE:
-				return getLongitude();
+			case OsmPackage.NODE_REF___GET_LAT_LONG:
+				return getLatLong();
 		}
 		return super.eInvoke(operationID, arguments);
 	}

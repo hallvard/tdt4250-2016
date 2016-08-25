@@ -16,9 +16,9 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="LatLong" instanceClassName="no.hal.pgo.osm.geoutil.LatLong"/>
   <eClassifiers xsi:type="ecore:EClass" name="GeoLocated" abstract="true" interface="true">
-    <eOperations name="getLatitude" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eOperations name="getLongitude" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eOperations name="getLatLong" eType="#//LatLong"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Way" eSuperTypes="#//OSMElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"

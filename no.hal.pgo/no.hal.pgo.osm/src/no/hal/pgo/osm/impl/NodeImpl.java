@@ -2,13 +2,16 @@
  */
 package no.hal.pgo.osm.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import no.hal.pgo.osm.GeoLocated;
 import no.hal.pgo.osm.GeoLocation;
 import no.hal.pgo.osm.Node;
 import no.hal.pgo.osm.OsmPackage;
 
+import no.hal.pgo.osm.geoutil.LatLong;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -134,6 +137,17 @@ public class NodeImpl extends OSMElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LatLong getLatLong() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -239,6 +253,41 @@ public class NodeImpl extends OSMElementImpl implements Node {
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedOperationID(int baseOperationID, Class<?> baseClass) {
+		if (baseClass == GeoLocated.class) {
+			switch (baseOperationID) {
+				case OsmPackage.GEO_LOCATED___GET_LAT_LONG: return OsmPackage.NODE___GET_LAT_LONG;
+				default: return -1;
+			}
+		}
+		if (baseClass == GeoLocation.class) {
+			switch (baseOperationID) {
+				default: return -1;
+			}
+		}
+		return super.eDerivedOperationID(baseOperationID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case OsmPackage.NODE___GET_LAT_LONG:
+				return getLatLong();
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**

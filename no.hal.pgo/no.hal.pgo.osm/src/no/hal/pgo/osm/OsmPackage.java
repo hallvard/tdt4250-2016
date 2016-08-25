@@ -4,6 +4,7 @@ package no.hal.pgo.osm;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -440,22 +441,13 @@ public interface OsmPackage extends EPackage {
 	int NODE___HAS_TAG__STRING_STRING = OSM_ELEMENT___HAS_TAG__STRING_STRING;
 
 	/**
-	 * The operation id for the '<em>Get Latitude</em>' operation.
+	 * The operation id for the '<em>Get Lat Long</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE___GET_LATITUDE = OSM_ELEMENT_OPERATION_COUNT + 0;
-
-	/**
-	 * The operation id for the '<em>Get Longitude</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE___GET_LONGITUDE = OSM_ELEMENT_OPERATION_COUNT + 1;
+	int NODE___GET_LAT_LONG = OSM_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Node</em>' class.
@@ -464,7 +456,7 @@ public interface OsmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_OPERATION_COUNT = OSM_ELEMENT_OPERATION_COUNT + 2;
+	int NODE_OPERATION_COUNT = OSM_ELEMENT_OPERATION_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link no.hal.pgo.osm.GeoLocated <em>Geo Located</em>}' class.
@@ -486,22 +478,13 @@ public interface OsmPackage extends EPackage {
 	int GEO_LOCATED_FEATURE_COUNT = 0;
 
 	/**
-	 * The operation id for the '<em>Get Latitude</em>' operation.
+	 * The operation id for the '<em>Get Lat Long</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEO_LOCATED___GET_LATITUDE = 0;
-
-	/**
-	 * The operation id for the '<em>Get Longitude</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEO_LOCATED___GET_LONGITUDE = 1;
+	int GEO_LOCATED___GET_LAT_LONG = 0;
 
 	/**
 	 * The number of operations of the '<em>Geo Located</em>' class.
@@ -510,7 +493,7 @@ public interface OsmPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEO_LOCATED_OPERATION_COUNT = 2;
+	int GEO_LOCATED_OPERATION_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link no.hal.pgo.osm.impl.GeoLocationImpl <em>Geo Location</em>}' class.
@@ -550,22 +533,13 @@ public interface OsmPackage extends EPackage {
 	int GEO_LOCATION_FEATURE_COUNT = GEO_LOCATED_FEATURE_COUNT + 2;
 
 	/**
-	 * The operation id for the '<em>Get Latitude</em>' operation.
+	 * The operation id for the '<em>Get Lat Long</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEO_LOCATION___GET_LATITUDE = GEO_LOCATED___GET_LATITUDE;
-
-	/**
-	 * The operation id for the '<em>Get Longitude</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEO_LOCATION___GET_LONGITUDE = GEO_LOCATED___GET_LONGITUDE;
+	int GEO_LOCATION___GET_LAT_LONG = GEO_LOCATED___GET_LAT_LONG;
 
 	/**
 	 * The number of operations of the '<em>Geo Location</em>' class.
@@ -741,22 +715,13 @@ public interface OsmPackage extends EPackage {
 	int NODE_REF_FEATURE_COUNT = GEO_LOCATED_FEATURE_COUNT + 1;
 
 	/**
-	 * The operation id for the '<em>Get Latitude</em>' operation.
+	 * The operation id for the '<em>Get Lat Long</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_REF___GET_LATITUDE = GEO_LOCATED___GET_LATITUDE;
-
-	/**
-	 * The operation id for the '<em>Get Longitude</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_REF___GET_LONGITUDE = GEO_LOCATED___GET_LONGITUDE;
+	int NODE_REF___GET_LAT_LONG = GEO_LOCATED___GET_LAT_LONG;
 
 	/**
 	 * The number of operations of the '<em>Node Ref</em>' class.
@@ -1245,6 +1210,17 @@ public interface OsmPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Lat Long</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.hal.pgo.osm.geoutil.LatLong
+	 * @see no.hal.pgo.osm.impl.OsmPackageImpl#getLatLong()
+	 * @generated
+	 */
+	int LAT_LONG = 15;
+
+
+	/**
 	 * Returns the meta object for class '{@link no.hal.pgo.osm.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1297,24 +1273,14 @@ public interface OsmPackage extends EPackage {
 	EClass getGeoLocated();
 
 	/**
-	 * Returns the meta object for the '{@link no.hal.pgo.osm.GeoLocated#getLatitude() <em>Get Latitude</em>}' operation.
+	 * Returns the meta object for the '{@link no.hal.pgo.osm.GeoLocated#getLatLong() <em>Get Lat Long</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Get Latitude</em>' operation.
-	 * @see no.hal.pgo.osm.GeoLocated#getLatitude()
+	 * @return the meta object for the '<em>Get Lat Long</em>' operation.
+	 * @see no.hal.pgo.osm.GeoLocated#getLatLong()
 	 * @generated
 	 */
-	EOperation getGeoLocated__GetLatitude();
-
-	/**
-	 * Returns the meta object for the '{@link no.hal.pgo.osm.GeoLocated#getLongitude() <em>Get Longitude</em>}' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Get Longitude</em>' operation.
-	 * @see no.hal.pgo.osm.GeoLocated#getLongitude()
-	 * @generated
-	 */
-	EOperation getGeoLocated__GetLongitude();
+	EOperation getGeoLocated__GetLatLong();
 
 	/**
 	 * Returns the meta object for class '{@link no.hal.pgo.osm.Way <em>Way</em>}'.
@@ -1797,6 +1763,17 @@ public interface OsmPackage extends EPackage {
 	EAttribute getMetaData_OsmBase();
 
 	/**
+	 * Returns the meta object for data type '{@link no.hal.pgo.osm.geoutil.LatLong <em>Lat Long</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Lat Long</em>'.
+	 * @see no.hal.pgo.osm.geoutil.LatLong
+	 * @model instanceClass="no.hal.pgo.osm.geoutil.LatLong"
+	 * @generated
+	 */
+	EDataType getLatLong();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1866,20 +1843,12 @@ public interface OsmPackage extends EPackage {
 		EClass GEO_LOCATED = eINSTANCE.getGeoLocated();
 
 		/**
-		 * The meta object literal for the '<em><b>Get Latitude</b></em>' operation.
+		 * The meta object literal for the '<em><b>Get Lat Long</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation GEO_LOCATED___GET_LATITUDE = eINSTANCE.getGeoLocated__GetLatitude();
-
-		/**
-		 * The meta object literal for the '<em><b>Get Longitude</b></em>' operation.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EOperation GEO_LOCATED___GET_LONGITUDE = eINSTANCE.getGeoLocated__GetLongitude();
+		EOperation GEO_LOCATED___GET_LAT_LONG = eINSTANCE.getGeoLocated__GetLatLong();
 
 		/**
 		 * The meta object literal for the '{@link no.hal.pgo.osm.impl.WayImpl <em>Way</em>}' class.
@@ -2264,6 +2233,16 @@ public interface OsmPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute META_DATA__OSM_BASE = eINSTANCE.getMetaData_OsmBase();
+
+		/**
+		 * The meta object literal for the '<em>Lat Long</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see no.hal.pgo.osm.geoutil.LatLong
+		 * @see no.hal.pgo.osm.impl.OsmPackageImpl#getLatLong()
+		 * @generated
+		 */
+		EDataType LAT_LONG = eINSTANCE.getLatLong();
 
 	}
 

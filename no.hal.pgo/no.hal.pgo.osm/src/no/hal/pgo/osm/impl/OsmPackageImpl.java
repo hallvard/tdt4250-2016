@@ -19,8 +19,10 @@ import no.hal.pgo.osm.Tagged;
 import no.hal.pgo.osm.Tags;
 import no.hal.pgo.osm.Way;
 
+import no.hal.pgo.osm.geoutil.LatLong;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -140,6 +142,13 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 	private EClass metaDataEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType latLongEDataType = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -250,17 +259,8 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getGeoLocated__GetLatitude() {
+	public EOperation getGeoLocated__GetLatLong() {
 		return geoLocatedEClass.getEOperations().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EOperation getGeoLocated__GetLongitude() {
-		return geoLocatedEClass.getEOperations().get(1);
 	}
 
 	/**
@@ -673,6 +673,15 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getLatLong() {
+		return latLongEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OsmFactory getOsmFactory() {
 		return (OsmFactory)getEFactoryInstance();
 	}
@@ -703,8 +712,7 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 		createEAttribute(geoLocationEClass, GEO_LOCATION__LONGITUDE);
 
 		geoLocatedEClass = createEClass(GEO_LOCATED);
-		createEOperation(geoLocatedEClass, GEO_LOCATED___GET_LATITUDE);
-		createEOperation(geoLocatedEClass, GEO_LOCATED___GET_LONGITUDE);
+		createEOperation(geoLocatedEClass, GEO_LOCATED___GET_LAT_LONG);
 
 		wayEClass = createEClass(WAY);
 		createEReference(wayEClass, WAY__NODES);
@@ -762,6 +770,9 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 
 		metaDataEClass = createEClass(META_DATA);
 		createEAttribute(metaDataEClass, META_DATA__OSM_BASE);
+
+		// Create data types
+		latLongEDataType = createEDataType(LAT_LONG);
 	}
 
 	/**
@@ -810,9 +821,7 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 
 		initEClass(geoLocatedEClass, GeoLocated.class, "GeoLocated", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEOperation(getGeoLocated__GetLatitude(), ecorePackage.getEFloat(), "getLatitude", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEOperation(getGeoLocated__GetLongitude(), ecorePackage.getEFloat(), "getLongitude", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getGeoLocated__GetLatLong(), this.getLatLong(), "getLatLong", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(wayEClass, Way.class, "Way", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWay_Nodes(), this.getNodeRef(), null, "nodes", null, 0, -1, Way.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -877,6 +886,9 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 
 		initEClass(metaDataEClass, MetaData.class, "MetaData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMetaData_OsmBase(), ecorePackage.getEString(), "osmBase", null, 0, 1, MetaData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize data types
+		initEDataType(latLongEDataType, LatLong.class, "LatLong", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

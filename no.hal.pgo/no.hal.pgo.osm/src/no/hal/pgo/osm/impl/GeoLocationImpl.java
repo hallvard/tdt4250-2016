@@ -2,15 +2,17 @@
  */
 package no.hal.pgo.osm.impl;
 
-import no.hal.pgo.osm.GeoLocation;
-import no.hal.pgo.osm.OsmPackage;
+import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import no.hal.pgo.osm.GeoLocation;
+import no.hal.pgo.osm.OsmPackage;
+import no.hal.pgo.osm.geoutil.LatLong;
 
 /**
  * <!-- begin-user-doc -->
@@ -91,6 +93,7 @@ public class GeoLocationImpl extends MinimalEObjectImpl.Container implements Geo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public float getLatitude() {
 		return latitude;
 	}
@@ -100,6 +103,7 @@ public class GeoLocationImpl extends MinimalEObjectImpl.Container implements Geo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLatitude(float newLatitude) {
 		float oldLatitude = latitude;
 		latitude = newLatitude;
@@ -112,6 +116,7 @@ public class GeoLocationImpl extends MinimalEObjectImpl.Container implements Geo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public float getLongitude() {
 		return longitude;
 	}
@@ -121,11 +126,22 @@ public class GeoLocationImpl extends MinimalEObjectImpl.Container implements Geo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLongitude(float newLongitude) {
 		float oldLongitude = longitude;
 		longitude = newLongitude;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OsmPackage.GEO_LOCATION__LONGITUDE, oldLongitude, longitude));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public LatLong getLatLong() {
+		return new LatLong(getLatitude(), getLongitude());
 	}
 
 	/**
@@ -194,6 +210,20 @@ public class GeoLocationImpl extends MinimalEObjectImpl.Container implements Geo
 				return longitude != LONGITUDE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case OsmPackage.GEO_LOCATION___GET_LAT_LONG:
+				return getLatLong();
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**
