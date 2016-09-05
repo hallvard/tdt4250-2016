@@ -4,6 +4,16 @@ package no.hal.pgo.osm.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import no.hal.pgo.osm.Bounds;
 import no.hal.pgo.osm.MetaData;
 import no.hal.pgo.osm.Node;
@@ -12,20 +22,6 @@ import no.hal.pgo.osm.OSM;
 import no.hal.pgo.osm.OsmPackage;
 import no.hal.pgo.osm.Relation;
 import no.hal.pgo.osm.Way;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link no.hal.pgo.osm.impl.OSMImpl#getGenerator <em>Generator</em>}</li>
  *   <li>{@link no.hal.pgo.osm.impl.OSMImpl#getNotes <em>Notes</em>}</li>
  *   <li>{@link no.hal.pgo.osm.impl.OSMImpl#getMetaData <em>Meta Data</em>}</li>
+ *   <li>{@link no.hal.pgo.osm.impl.OSMImpl#getCopyright <em>Copyright</em>}</li>
  * </ul>
  *
  * @generated
@@ -149,6 +146,26 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	protected EList<MetaData> metaData;
 
 	/**
+	 * The default value of the '{@link #getCopyright() <em>Copyright</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCopyright()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COPYRIGHT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCopyright() <em>Copyright</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCopyright()
+	 * @generated
+	 * @ordered
+	 */
+	protected String copyright = COPYRIGHT_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -172,6 +189,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Node> getNodes() {
 		if (nodes == null) {
 			nodes = new EObjectContainmentEList<Node>(Node.class, this, OsmPackage.OSM__NODES);
@@ -184,6 +202,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Way> getWays() {
 		if (ways == null) {
 			ways = new EObjectContainmentEList<Way>(Way.class, this, OsmPackage.OSM__WAYS);
@@ -196,6 +215,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Relation> getRelations() {
 		if (relations == null) {
 			relations = new EObjectContainmentEList<Relation>(Relation.class, this, OsmPackage.OSM__RELATIONS);
@@ -208,6 +228,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Bounds getBounds() {
 		return bounds;
 	}
@@ -232,6 +253,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBounds(Bounds newBounds) {
 		if (newBounds != bounds) {
 			NotificationChain msgs = null;
@@ -251,6 +273,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -260,6 +283,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -272,6 +296,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getGenerator() {
 		return generator;
 	}
@@ -281,6 +306,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setGenerator(String newGenerator) {
 		String oldGenerator = generator;
 		generator = newGenerator;
@@ -293,6 +319,7 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Note> getNotes() {
 		if (notes == null) {
 			notes = new EObjectContainmentEList<Note>(Note.class, this, OsmPackage.OSM__NOTES);
@@ -305,11 +332,33 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<MetaData> getMetaData() {
 		if (metaData == null) {
 			metaData = new EObjectContainmentEList<MetaData>(MetaData.class, this, OsmPackage.OSM__META_DATA);
 		}
 		return metaData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCopyright() {
+		return copyright;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCopyright(String newCopyright) {
+		String oldCopyright = copyright;
+		copyright = newCopyright;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OsmPackage.OSM__COPYRIGHT, oldCopyright, copyright));
 	}
 
 	/**
@@ -360,6 +409,8 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 				return getNotes();
 			case OsmPackage.OSM__META_DATA:
 				return getMetaData();
+			case OsmPackage.OSM__COPYRIGHT:
+				return getCopyright();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -402,6 +453,9 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 				getMetaData().clear();
 				getMetaData().addAll((Collection<? extends MetaData>)newValue);
 				return;
+			case OsmPackage.OSM__COPYRIGHT:
+				setCopyright((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -438,6 +492,9 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 			case OsmPackage.OSM__META_DATA:
 				getMetaData().clear();
 				return;
+			case OsmPackage.OSM__COPYRIGHT:
+				setCopyright(COPYRIGHT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -466,6 +523,8 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 				return notes != null && !notes.isEmpty();
 			case OsmPackage.OSM__META_DATA:
 				return metaData != null && !metaData.isEmpty();
+			case OsmPackage.OSM__COPYRIGHT:
+				return COPYRIGHT_EDEFAULT == null ? copyright != null : !COPYRIGHT_EDEFAULT.equals(copyright);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -484,6 +543,8 @@ public class OSMImpl extends MinimalEObjectImpl.Container implements OSM {
 		result.append(version);
 		result.append(", generator: ");
 		result.append(generator);
+		result.append(", copyright: ");
+		result.append(copyright);
 		result.append(')');
 		return result.toString();
 	}

@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link no.hal.pgo.osm.OSM#getGenerator <em>Generator</em>}</li>
  *   <li>{@link no.hal.pgo.osm.OSM#getNotes <em>Notes</em>}</li>
  *   <li>{@link no.hal.pgo.osm.OSM#getMetaData <em>Meta Data</em>}</li>
+ *   <li>{@link no.hal.pgo.osm.OSM#getCopyright <em>Copyright</em>}</li>
  * </ul>
  *
  * @see no.hal.pgo.osm.OsmPackage#getOSM()
@@ -192,5 +193,31 @@ public interface OSM extends EObject {
 	 * @generated
 	 */
 	EList<MetaData> getMetaData();
+
+	/**
+	 * Returns the value of the '<em><b>Copyright</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Copyright</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Copyright</em>' attribute.
+	 * @see #setCopyright(String)
+	 * @see no.hal.pgo.osm.OsmPackage#getOSM_Copyright()
+	 * @model
+	 * @generated
+	 */
+	String getCopyright();
+
+	/**
+	 * Sets the value of the '{@link no.hal.pgo.osm.OSM#getCopyright <em>Copyright</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Copyright</em>' attribute.
+	 * @see #getCopyright()
+	 * @generated
+	 */
+	void setCopyright(String value);
 
 } // OSM

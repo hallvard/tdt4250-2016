@@ -637,6 +637,15 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getOSM_Copyright() {
+		return (EAttribute)osmEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNote() {
 		return noteEClass;
 	}
@@ -764,6 +773,7 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 		createEAttribute(osmEClass, OSM__GENERATOR);
 		createEReference(osmEClass, OSM__NOTES);
 		createEReference(osmEClass, OSM__META_DATA);
+		createEAttribute(osmEClass, OSM__COPYRIGHT);
 
 		noteEClass = createEClass(NOTE);
 		createEAttribute(noteEClass, NOTE__CONTENTS);
@@ -880,6 +890,7 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 		initEAttribute(getOSM_Generator(), ecorePackage.getEString(), "generator", null, 0, 1, no.hal.pgo.osm.OSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOSM_Notes(), this.getNote(), null, "notes", null, 0, -1, no.hal.pgo.osm.OSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOSM_MetaData(), this.getMetaData(), null, "metaData", null, 0, -1, no.hal.pgo.osm.OSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOSM_Copyright(), ecorePackage.getEString(), "copyright", null, 0, 1, no.hal.pgo.osm.OSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(noteEClass, Note.class, "Note", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNote_Contents(), ecorePackage.getEString(), "contents", null, 0, 1, Note.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

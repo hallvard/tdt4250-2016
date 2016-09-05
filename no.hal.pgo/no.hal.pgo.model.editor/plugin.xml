@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated pgo -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="no.hal.pgo.presentation.PgoModelWizardID"
+            name="%_UI_PgoModelWizard_label"
+            class="no.hal.pgo.presentation.PgoModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PgoModelFile.gif">
+         <description>%_UI_PgoModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated pgo -->
+      <editor
+            id="no.hal.pgo.presentation.PgoEditorID"
+            name="%_UI_PgoEditor_label"
+            icon="icons/full/obj16/PgoModelFile.gif"
+            extensions="pgo"
+            class="no.hal.pgo.presentation.PgoEditor"
+            contributorClass="no.hal.pgo.presentation.PgoActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

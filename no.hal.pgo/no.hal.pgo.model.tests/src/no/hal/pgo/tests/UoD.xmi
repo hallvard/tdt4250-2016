@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pgo:UoD xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:pgo="platform:/plugin/no.hal.pgo.model/model/pgo.ecore"
+    xsi:schemaLocation="platform:/plugin/no.hal.pgo.model/model/pgo.ecore ../../../../../../no.hal.pgo.model/model/pgo.ecore">
+  <games>
+    <players
+        person="//@persons.0"
+        inventory="//@games.0/@items.0"/>
+    <items location="//@games.0/@players.0"
+        owner="//@games.0/@players.0"/>
+  </games>
+  <persons name="Hallvard Trætteberg">
+    <ids>hal@idi.ntnu.no</ids>
+    <ids>hallvard.traetteberg@gmail.com</ids>
+  </persons>
+  <persons name="Jens Trætteberg">
+    <ids>jenstraetteberg@gmail.com</ids>
+    <ids>hallvard.traetteberg@gmail.com</ids>
+  </persons>
+</pgo:UoD>

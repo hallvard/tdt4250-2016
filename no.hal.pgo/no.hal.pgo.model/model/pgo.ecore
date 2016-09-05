@@ -12,17 +12,30 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="xp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ps"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="items"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inventory" upperBound="-1"
+        eType="#//Item" eOpposite="#//Item/owner"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Item">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="ecore:EClass ../../no.hal.pgo.osm/model/osm.ecore#//GeoLocated"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//Player"
+        eOpposite="#//Player/inventory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PGame">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="UniquePlayerNames"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="players" upperBound="-1"
         eType="#//Player" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
+        eType="#//Item" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UoD">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="games" eType="#//PGame"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="persons" eType="#//Person"
-        containment="true"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="UniquePersonIds"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="games" upperBound="-1"
+        eType="#//PGame" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="persons" upperBound="-1"
+        eType="#//Person" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -1116,13 +1116,22 @@ public interface OsmPackage extends EPackage {
 	int OSM__META_DATA = 7;
 
 	/**
+	 * The feature id for the '<em><b>Copyright</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OSM__COPYRIGHT = 8;
+
+	/**
 	 * The number of structural features of the '<em>OSM</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OSM_FEATURE_COUNT = 8;
+	int OSM_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>OSM</em>' class.
@@ -1721,6 +1730,17 @@ public interface OsmPackage extends EPackage {
 	EReference getOSM_MetaData();
 
 	/**
+	 * Returns the meta object for the attribute '{@link no.hal.pgo.osm.OSM#getCopyright <em>Copyright</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Copyright</em>'.
+	 * @see no.hal.pgo.osm.OSM#getCopyright()
+	 * @see #getOSM()
+	 * @generated
+	 */
+	EAttribute getOSM_Copyright();
+
+	/**
 	 * Returns the meta object for class '{@link no.hal.pgo.osm.Note <em>Note</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2197,6 +2217,14 @@ public interface OsmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OSM__META_DATA = eINSTANCE.getOSM_MetaData();
+
+		/**
+		 * The meta object literal for the '<em><b>Copyright</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OSM__COPYRIGHT = eINSTANCE.getOSM_Copyright();
 
 		/**
 		 * The meta object literal for the '{@link no.hal.pgo.osm.impl.NoteImpl <em>Note</em>}' class.

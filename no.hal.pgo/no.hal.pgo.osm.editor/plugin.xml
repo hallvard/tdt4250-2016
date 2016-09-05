@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated osm -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="no.hal.pgo.osm.presentation.OsmModelWizardID"
+            name="%_UI_OsmModelWizard_label"
+            class="no.hal.pgo.osm.presentation.OsmModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OsmModelFile.gif">
+         <description>%_UI_OsmModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated osm -->
+      <editor
+            id="no.hal.pgo.osm.presentation.OsmEditorID"
+            name="%_UI_OsmEditor_label"
+            icon="icons/full/obj16/OsmModelFile.gif"
+            extensions="osm"
+            class="no.hal.pgo.osm.presentation.OsmEditor"
+            contributorClass="no.hal.pgo.osm.presentation.OsmActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
