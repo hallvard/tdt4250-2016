@@ -21,6 +21,31 @@ public class LatLong {
 		return latitude + SEPARATOR + longitude;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		LatLong other = (LatLong) obj;
+		return (Double.doubleToLongBits(latitude) == Double.doubleToLongBits(other.latitude) &&
+				Double.doubleToLongBits(longitude) == Double.doubleToLongBits(other.longitude));
+	}
+
 	public static LatLong valueOf(String s) {
 		return valueOf(s, SEPARATOR);
 	}

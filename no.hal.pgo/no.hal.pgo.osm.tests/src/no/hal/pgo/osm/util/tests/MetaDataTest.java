@@ -1,29 +1,27 @@
 /**
  */
-package no.hal.pgo.osm.tests;
+package no.hal.pgo.osm.util.tests;
 
 import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
-import no.hal.pgo.osm.Member;
+import no.hal.pgo.osm.MetaData;
 import no.hal.pgo.osm.OsmFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Member</b></em>'.
+ * A test case for the model object '<em><b>Meta Data</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class MemberTest extends TestCase {
+public class MetaDataTest extends TestCase {
 
 	/**
-	 * The fixture for this Member test case.
+	 * The fixture for this Meta Data test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Member fixture = null;
+	protected MetaData fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,36 +29,36 @@ public class MemberTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(MemberTest.class);
+		TestRunner.run(MetaDataTest.class);
 	}
 
 	/**
-	 * Constructs a new Member test case with the given name.
+	 * Constructs a new Meta Data test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MemberTest(String name) {
+	public MetaDataTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Member test case.
+	 * Sets the fixture for this Meta Data test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(Member fixture) {
+	protected void setFixture(MetaData fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this Member test case.
+	 * Returns the fixture for this Meta Data test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Member getFixture() {
+	protected MetaData getFixture() {
 		return fixture;
 	}
 
@@ -72,7 +70,7 @@ public class MemberTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createMember());
+		setFixture(OsmFactory.eINSTANCE.createMetaData());
 	}
 
 	/**
@@ -86,4 +84,8 @@ public class MemberTest extends TestCase {
 		setFixture(null);
 	}
 
-} //MemberTest
+	//
+	
+	public void testIgnore() {
+	}
+} //MetaDataTest

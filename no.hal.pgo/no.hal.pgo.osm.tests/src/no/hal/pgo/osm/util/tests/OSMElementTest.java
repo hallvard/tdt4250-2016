@@ -1,29 +1,19 @@
 /**
  */
-package no.hal.pgo.osm.tests;
-
-import junit.framework.TestCase;
+package no.hal.pgo.osm.util.tests;
 
 import junit.textui.TestRunner;
 
+import no.hal.pgo.osm.OSMElement;
 import no.hal.pgo.osm.OsmFactory;
-import no.hal.pgo.osm.Tag;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Tag</b></em>'.
+ * A test case for the model object '<em><b>OSM Element</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class TagTest extends TestCase {
-
-	/**
-	 * The fixture for this Tag test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Tag fixture = null;
+public class OSMElementTest extends TagsTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,37 +21,28 @@ public class TagTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(TagTest.class);
+		TestRunner.run(OSMElementTest.class);
 	}
 
 	/**
-	 * Constructs a new Tag test case with the given name.
+	 * Constructs a new OSM Element test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TagTest(String name) {
+	public OSMElementTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Tag test case.
+	 * Returns the fixture for this OSM Element test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(Tag fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * Returns the fixture for this Tag test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Tag getFixture() {
-		return fixture;
+	@Override
+	protected OSMElement getFixture() {
+		return (OSMElement)fixture;
 	}
 
 	/**
@@ -72,7 +53,7 @@ public class TagTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createTag());
+		setFixture(OsmFactory.eINSTANCE.createOSMElement());
 	}
 
 	/**
@@ -86,4 +67,4 @@ public class TagTest extends TestCase {
 		setFixture(null);
 	}
 
-} //TagTest
+} //OSMElementTest

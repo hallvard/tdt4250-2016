@@ -69,7 +69,7 @@
 	<modules>
 		<module>no.hal.pgo.osm</module>
 		<module>no.hal.pgo.osm.tests</module>
-		<module>no.hal.pgo.model</module>
+		
 	</modules>
 
 </project>

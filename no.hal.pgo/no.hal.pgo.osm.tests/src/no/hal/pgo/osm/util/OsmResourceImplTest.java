@@ -1,4 +1,4 @@
-package no.hal.pgo.osm;
+package no.hal.pgo.osm.util;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import no.hal.pgo.osm.OsmPackage;
 import no.hal.pgo.osm.util.OsmResourceFactoryImpl;
 import no.hal.pgo.osm.util.OsmResourceImpl;
 

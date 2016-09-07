@@ -1,6 +1,6 @@
 /**
  */
-package no.hal.pgo.osm.tests;
+package no.hal.pgo.osm.util.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

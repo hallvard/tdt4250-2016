@@ -1,29 +1,19 @@
 /**
  */
-package no.hal.pgo.osm.tests;
-
-import junit.framework.TestCase;
+package no.hal.pgo.osm.util.tests;
 
 import junit.textui.TestRunner;
 
-import no.hal.pgo.osm.Note;
 import no.hal.pgo.osm.OsmFactory;
+import no.hal.pgo.osm.Way;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Note</b></em>'.
+ * A test case for the model object '<em><b>Way</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class NoteTest extends TestCase {
-
-	/**
-	 * The fixture for this Note test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Note fixture = null;
+public class WayTest extends OSMElementTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,37 +21,28 @@ public class NoteTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(NoteTest.class);
+		TestRunner.run(WayTest.class);
 	}
 
 	/**
-	 * Constructs a new Note test case with the given name.
+	 * Constructs a new Way test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NoteTest(String name) {
+	public WayTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Note test case.
+	 * Returns the fixture for this Way test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(Note fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * Returns the fixture for this Note test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Note getFixture() {
-		return fixture;
+	@Override
+	protected Way getFixture() {
+		return (Way)fixture;
 	}
 
 	/**
@@ -72,7 +53,7 @@ public class NoteTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createNote());
+		setFixture(OsmFactory.eINSTANCE.createWay());
 	}
 
 	/**
@@ -86,4 +67,4 @@ public class NoteTest extends TestCase {
 		setFixture(null);
 	}
 
-} //NoteTest
+} //WayTest

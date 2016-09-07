@@ -3,18 +3,17 @@
 package no.hal.pgo.osm.impl;
 
 import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import no.hal.pgo.osm.GeoLocated;
 import no.hal.pgo.osm.GeoLocation;
 import no.hal.pgo.osm.Node;
 import no.hal.pgo.osm.OsmPackage;
-
 import no.hal.pgo.osm.geoutil.LatLong;
-import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,6 +94,7 @@ public class NodeImpl extends OSMElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public float getLatitude() {
 		return latitude;
 	}
@@ -104,6 +104,7 @@ public class NodeImpl extends OSMElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLatitude(float newLatitude) {
 		float oldLatitude = latitude;
 		latitude = newLatitude;
@@ -116,6 +117,7 @@ public class NodeImpl extends OSMElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public float getLongitude() {
 		return longitude;
 	}
@@ -125,6 +127,7 @@ public class NodeImpl extends OSMElementImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLongitude(float newLongitude) {
 		float oldLongitude = longitude;
 		longitude = newLongitude;
@@ -135,12 +138,11 @@ public class NodeImpl extends OSMElementImpl implements Node {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
+	@Override
 	public LatLong getLatLong() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return new LatLong(getLatitude(), getLongitude());
 	}
 
 	/**

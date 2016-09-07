@@ -1,29 +1,27 @@
 /**
  */
-package no.hal.pgo.osm.tests;
+package no.hal.pgo.osm.util.tests;
 
 import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
-import no.hal.pgo.osm.Bounds;
+import no.hal.pgo.osm.OSM;
 import no.hal.pgo.osm.OsmFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Bounds</b></em>'.
+ * A test case for the model object '<em><b>OSM</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class BoundsTest extends TestCase {
+public class OSMTest extends TestCase {
 
 	/**
-	 * The fixture for this Bounds test case.
+	 * The fixture for this OSM test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Bounds fixture = null;
+	protected OSM fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,36 +29,36 @@ public class BoundsTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(BoundsTest.class);
+		TestRunner.run(OSMTest.class);
 	}
 
 	/**
-	 * Constructs a new Bounds test case with the given name.
+	 * Constructs a new OSM test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BoundsTest(String name) {
+	public OSMTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Bounds test case.
+	 * Sets the fixture for this OSM test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(Bounds fixture) {
+	protected void setFixture(OSM fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this Bounds test case.
+	 * Returns the fixture for this OSM test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Bounds getFixture() {
+	protected OSM getFixture() {
 		return fixture;
 	}
 
@@ -72,7 +70,7 @@ public class BoundsTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createBounds());
+		setFixture(OsmFactory.eINSTANCE.createOSM());
 	}
 
 	/**
@@ -86,4 +84,8 @@ public class BoundsTest extends TestCase {
 		setFixture(null);
 	}
 
-} //BoundsTest
+	//
+	
+	public void testIgnore() {
+	}
+} //OSMTest

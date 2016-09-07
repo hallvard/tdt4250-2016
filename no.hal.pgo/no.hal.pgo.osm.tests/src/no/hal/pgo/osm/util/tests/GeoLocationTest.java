@@ -1,15 +1,16 @@
 /**
  */
-package no.hal.pgo.osm.tests;
+package no.hal.pgo.osm.util.tests;
 
+import junit.framework.TestCase;
 import junit.textui.TestRunner;
-
-import no.hal.pgo.osm.Node;
+import no.hal.pgo.osm.GeoLocation;
 import no.hal.pgo.osm.OsmFactory;
+import no.hal.pgo.osm.geoutil.LatLong;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Node</b></em>'.
+ * A test case for the model object '<em><b>Geo Location</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following operations are tested:
@@ -19,7 +20,15 @@ import no.hal.pgo.osm.OsmFactory;
  * </p>
  * @generated
  */
-public class NodeTest extends OSMElementTest {
+public class GeoLocationTest extends TestCase {
+
+	/**
+	 * The fixture for this Geo Location test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GeoLocation fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -27,28 +36,37 @@ public class NodeTest extends OSMElementTest {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(NodeTest.class);
+		TestRunner.run(GeoLocationTest.class);
 	}
 
 	/**
-	 * Constructs a new Node test case with the given name.
+	 * Constructs a new Geo Location test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeTest(String name) {
+	public GeoLocationTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Returns the fixture for this Node test case.
+	 * Sets the fixture for this Geo Location test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	protected Node getFixture() {
-		return (Node)fixture;
+	protected void setFixture(GeoLocation fixture) {
+		this.fixture = fixture;
+	}
+
+	/**
+	 * Returns the fixture for this Geo Location test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GeoLocation getFixture() {
+		return fixture;
 	}
 
 	/**
@@ -59,7 +77,7 @@ public class NodeTest extends OSMElementTest {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createNode());
+		setFixture(OsmFactory.eINSTANCE.createGeoLocation());
 	}
 
 	/**
@@ -78,12 +96,13 @@ public class NodeTest extends OSMElementTest {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see no.hal.pgo.osm.GeoLocated#getLatLong()
-	 * @generated
+	 * @generated NOT
 	 */
 	public void testGetLatLong() {
-		// TODO: implement this operation test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
+		GeoLocation location = getFixture();
+		location.setLatitude(62);
+		location.setLongitude(12);
+		assertEquals(new LatLong(62, 12), location.getLatLong());
 	}
 
-} //NodeTest
+} //GeoLocationTest

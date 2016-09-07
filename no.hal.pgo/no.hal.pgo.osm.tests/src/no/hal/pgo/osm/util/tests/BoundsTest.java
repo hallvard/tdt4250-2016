@@ -1,29 +1,27 @@
 /**
  */
-package no.hal.pgo.osm.tests;
+package no.hal.pgo.osm.util.tests;
 
 import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
-
-import no.hal.pgo.osm.MetaData;
+import no.hal.pgo.osm.Bounds;
 import no.hal.pgo.osm.OsmFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Meta Data</b></em>'.
+ * A test case for the model object '<em><b>Bounds</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class MetaDataTest extends TestCase {
+public class BoundsTest extends TestCase {
 
 	/**
-	 * The fixture for this Meta Data test case.
+	 * The fixture for this Bounds test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MetaData fixture = null;
+	protected Bounds fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -31,36 +29,36 @@ public class MetaDataTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(MetaDataTest.class);
+		TestRunner.run(BoundsTest.class);
 	}
 
 	/**
-	 * Constructs a new Meta Data test case with the given name.
+	 * Constructs a new Bounds test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MetaDataTest(String name) {
+	public BoundsTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Meta Data test case.
+	 * Sets the fixture for this Bounds test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(MetaData fixture) {
+	protected void setFixture(Bounds fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this Meta Data test case.
+	 * Returns the fixture for this Bounds test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MetaData getFixture() {
+	protected Bounds getFixture() {
 		return fixture;
 	}
 
@@ -72,7 +70,7 @@ public class MetaDataTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createMetaData());
+		setFixture(OsmFactory.eINSTANCE.createBounds());
 	}
 
 	/**
@@ -86,4 +84,8 @@ public class MetaDataTest extends TestCase {
 		setFixture(null);
 	}
 
-} //MetaDataTest
+	//
+	
+	public void testIgnore() {
+	}
+} //BoundsTest

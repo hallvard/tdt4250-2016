@@ -1,17 +1,15 @@
 /**
  */
-package no.hal.pgo.osm.tests;
-
-import junit.framework.TestCase;
+package no.hal.pgo.osm.util.tests;
 
 import junit.textui.TestRunner;
-
-import no.hal.pgo.osm.NodeRef;
+import no.hal.pgo.osm.Node;
 import no.hal.pgo.osm.OsmFactory;
+import no.hal.pgo.osm.geoutil.LatLong;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Node Ref</b></em>'.
+ * A test case for the model object '<em><b>Node</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following operations are tested:
@@ -21,15 +19,7 @@ import no.hal.pgo.osm.OsmFactory;
  * </p>
  * @generated
  */
-public class NodeRefTest extends TestCase {
-
-	/**
-	 * The fixture for this Node Ref test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected NodeRef fixture = null;
+public class NodeTest extends OSMElementTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -37,37 +27,28 @@ public class NodeRefTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(NodeRefTest.class);
+		TestRunner.run(NodeTest.class);
 	}
 
 	/**
-	 * Constructs a new Node Ref test case with the given name.
+	 * Constructs a new Node test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeRefTest(String name) {
+	public NodeTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Node Ref test case.
+	 * Returns the fixture for this Node test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(NodeRef fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
-	 * Returns the fixture for this Node Ref test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected NodeRef getFixture() {
-		return fixture;
+	@Override
+	protected Node getFixture() {
+		return (Node)fixture;
 	}
 
 	/**
@@ -78,7 +59,7 @@ public class NodeRefTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createNodeRef());
+		setFixture(OsmFactory.eINSTANCE.createNode());
 	}
 
 	/**
@@ -97,12 +78,13 @@ public class NodeRefTest extends TestCase {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see no.hal.pgo.osm.GeoLocated#getLatLong()
-	 * @generated
+	 * @generated NOT
 	 */
 	public void testGetLatLong() {
-		// TODO: implement this operation test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
+		Node node = getFixture();
+		node.setLatitude(62);
+		node.setLongitude(12);
+		assertEquals(new LatLong(62, 12), node.getLatLong());
 	}
 
-} //NodeRefTest
+} //NodeTest

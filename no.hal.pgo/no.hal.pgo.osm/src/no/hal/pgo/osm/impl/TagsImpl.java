@@ -68,13 +68,13 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	@Override
 	public EList<Tag> getTags() {
 		if (tags == null) {
-			tags = new EObjectContainmentEList<Tag>(Tag.class, this, OsmPackage.TAGS__TAGS);
+			tags = new EObjectContainmentEList<>(Tag.class, this, OsmPackage.TAGS__TAGS);
 		}
 		return tags;
 	}
 
 	private Tag findTag(String key, String value) {
-		for (Tag tag : tags) {
+		for (Tag tag : getTags()) {
 			if ((key == null || key.equals(tag.getKey())) && (value == null || value.equals(tag.getValue()))) {
 				return tag;
 			}
