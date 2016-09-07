@@ -69,7 +69,9 @@
 	<modules>
 		<module>no.hal.pgo.osm</module>
 		<module>no.hal.pgo.osm.tests</module>
-		
+
+		<module>no.hal.pgo.osm.edit</module>
+		<module>no.hal.pgo.osm.editor</module>
 	</modules>
 
 </project>
