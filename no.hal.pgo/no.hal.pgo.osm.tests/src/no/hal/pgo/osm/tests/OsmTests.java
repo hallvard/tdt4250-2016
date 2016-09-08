@@ -1,6 +1,6 @@
 /**
  */
-package no.hal.pgo.osm.util.tests;
+package no.hal.pgo.osm.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -35,7 +35,6 @@ public class OsmTests extends TestSuite {
 		suite.addTestSuite(GeoLocationTest.class);
 		suite.addTestSuite(WayTest.class);
 		suite.addTestSuite(NodeRefTest.class);
-		suite.addTestSuite(OSMElementTest.class);
 		suite.addTestSuite(TagsTest.class);
 		suite.addTestSuite(RelationTest.class);
 		return suite;

@@ -1,27 +1,27 @@
 /**
  */
-package no.hal.pgo.osm.util.tests;
+package no.hal.pgo.osm.tests;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
+import no.hal.pgo.osm.OSM;
 import no.hal.pgo.osm.OsmFactory;
-import no.hal.pgo.osm.Tag;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Tag</b></em>'.
+ * A test case for the model object '<em><b>OSM</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class TagTest extends TestCase {
+public class OSMTest extends TestCase {
 
 	/**
-	 * The fixture for this Tag test case.
+	 * The fixture for this OSM test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Tag fixture = null;
+	protected OSM fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -29,36 +29,36 @@ public class TagTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(TagTest.class);
+		TestRunner.run(OSMTest.class);
 	}
 
 	/**
-	 * Constructs a new Tag test case with the given name.
+	 * Constructs a new OSM test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TagTest(String name) {
+	public OSMTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Tag test case.
+	 * Sets the fixture for this OSM test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(Tag fixture) {
+	protected void setFixture(OSM fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this Tag test case.
+	 * Returns the fixture for this OSM test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Tag getFixture() {
+	protected OSM getFixture() {
 		return fixture;
 	}
 
@@ -70,7 +70,7 @@ public class TagTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createTag());
+		setFixture(OsmFactory.eINSTANCE.createOSM());
 	}
 
 	/**
@@ -88,4 +88,4 @@ public class TagTest extends TestCase {
 	
 	public void testIgnore() {
 	}
-} //TagTest
+} //OSMTest

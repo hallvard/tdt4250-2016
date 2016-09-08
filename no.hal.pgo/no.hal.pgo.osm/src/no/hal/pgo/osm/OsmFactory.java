@@ -58,15 +58,6 @@ public interface OsmFactory extends EFactory {
 	NodeRef createNodeRef();
 
 	/**
-	 * Returns a new object of class '<em>OSM Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>OSM Element</em>'.
-	 * @generated
-	 */
-	OSMElement createOSMElement();
-
-	/**
 	 * Returns a new object of class '<em>Tags</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

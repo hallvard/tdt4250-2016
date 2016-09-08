@@ -164,29 +164,6 @@ public class OsmItemProviderAdapterFactory extends OsmAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link no.hal.pgo.osm.OSMElement} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected OSMElementItemProvider osmElementItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link no.hal.pgo.osm.OSMElement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createOSMElementAdapter() {
-		if (osmElementItemProvider == null) {
-			osmElementItemProvider = new OSMElementItemProvider(this);
-		}
-
-		return osmElementItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link no.hal.pgo.osm.Tags} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -473,7 +450,6 @@ public class OsmItemProviderAdapterFactory extends OsmAdapterFactory implements 
 		if (geoLocationItemProvider != null) geoLocationItemProvider.dispose();
 		if (wayItemProvider != null) wayItemProvider.dispose();
 		if (nodeRefItemProvider != null) nodeRefItemProvider.dispose();
-		if (osmElementItemProvider != null) osmElementItemProvider.dispose();
 		if (tagsItemProvider != null) tagsItemProvider.dispose();
 		if (tagItemProvider != null) tagItemProvider.dispose();
 		if (relationItemProvider != null) relationItemProvider.dispose();

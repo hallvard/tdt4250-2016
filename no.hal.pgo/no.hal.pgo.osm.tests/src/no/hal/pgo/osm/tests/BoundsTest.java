@@ -1,27 +1,27 @@
 /**
  */
-package no.hal.pgo.osm.util.tests;
+package no.hal.pgo.osm.tests;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import no.hal.pgo.osm.Note;
+import no.hal.pgo.osm.Bounds;
 import no.hal.pgo.osm.OsmFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Note</b></em>'.
+ * A test case for the model object '<em><b>Bounds</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class NoteTest extends TestCase {
+public class BoundsTest extends TestCase {
 
 	/**
-	 * The fixture for this Note test case.
+	 * The fixture for this Bounds test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Note fixture = null;
+	protected Bounds fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -29,36 +29,36 @@ public class NoteTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(NoteTest.class);
+		TestRunner.run(BoundsTest.class);
 	}
 
 	/**
-	 * Constructs a new Note test case with the given name.
+	 * Constructs a new Bounds test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NoteTest(String name) {
+	public BoundsTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this Note test case.
+	 * Sets the fixture for this Bounds test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(Note fixture) {
+	protected void setFixture(Bounds fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this Note test case.
+	 * Returns the fixture for this Bounds test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Note getFixture() {
+	protected Bounds getFixture() {
 		return fixture;
 	}
 
@@ -70,7 +70,7 @@ public class NoteTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createNote());
+		setFixture(OsmFactory.eINSTANCE.createBounds());
 	}
 
 	/**
@@ -88,4 +88,4 @@ public class NoteTest extends TestCase {
 	
 	public void testIgnore() {
 	}
-} //NoteTest
+} //BoundsTest

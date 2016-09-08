@@ -1,27 +1,27 @@
 /**
  */
-package no.hal.pgo.osm.util.tests;
+package no.hal.pgo.osm.tests;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import no.hal.pgo.osm.OSM;
+import no.hal.pgo.osm.Note;
 import no.hal.pgo.osm.OsmFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>OSM</b></em>'.
+ * A test case for the model object '<em><b>Note</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class OSMTest extends TestCase {
+public class NoteTest extends TestCase {
 
 	/**
-	 * The fixture for this OSM test case.
+	 * The fixture for this Note test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OSM fixture = null;
+	protected Note fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -29,36 +29,36 @@ public class OSMTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(OSMTest.class);
+		TestRunner.run(NoteTest.class);
 	}
 
 	/**
-	 * Constructs a new OSM test case with the given name.
+	 * Constructs a new Note test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OSMTest(String name) {
+	public NoteTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Sets the fixture for this OSM test case.
+	 * Sets the fixture for this Note test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(OSM fixture) {
+	protected void setFixture(Note fixture) {
 		this.fixture = fixture;
 	}
 
 	/**
-	 * Returns the fixture for this OSM test case.
+	 * Returns the fixture for this Note test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OSM getFixture() {
+	protected Note getFixture() {
 		return fixture;
 	}
 
@@ -70,7 +70,7 @@ public class OSMTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createOSM());
+		setFixture(OsmFactory.eINSTANCE.createNote());
 	}
 
 	/**
@@ -88,4 +88,4 @@ public class OSMTest extends TestCase {
 	
 	public void testIgnore() {
 	}
-} //OSMTest
+} //NoteTest

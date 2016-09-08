@@ -2,28 +2,13 @@
  */
 package no.hal.pgo.osm.impl;
 
+import no.hal.pgo.osm.*;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import no.hal.pgo.osm.Bounds;
-import no.hal.pgo.osm.GeoLocation;
-import no.hal.pgo.osm.Member;
-import no.hal.pgo.osm.MetaData;
-import no.hal.pgo.osm.Node;
-import no.hal.pgo.osm.NodeRef;
-import no.hal.pgo.osm.Note;
-import no.hal.pgo.osm.OSM;
-import no.hal.pgo.osm.OSMElement;
-import no.hal.pgo.osm.OsmFactory;
-import no.hal.pgo.osm.OsmPackage;
-import no.hal.pgo.osm.Relation;
-import no.hal.pgo.osm.Tag;
-import no.hal.pgo.osm.Tags;
-import no.hal.pgo.osm.Way;
 import no.hal.pgo.osm.geoutil.LatLong;
 
 /**
@@ -74,7 +59,6 @@ public class OsmFactoryImpl extends EFactoryImpl implements OsmFactory {
 			case OsmPackage.GEO_LOCATION: return createGeoLocation();
 			case OsmPackage.WAY: return createWay();
 			case OsmPackage.NODE_REF: return createNodeRef();
-			case OsmPackage.OSM_ELEMENT: return createOSMElement();
 			case OsmPackage.TAGS: return createTags();
 			case OsmPackage.TAG: return createTag();
 			case OsmPackage.RELATION: return createRelation();
@@ -160,17 +144,6 @@ public class OsmFactoryImpl extends EFactoryImpl implements OsmFactory {
 	public NodeRef createNodeRef() {
 		NodeRefImpl nodeRef = new NodeRefImpl();
 		return nodeRef;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public OSMElement createOSMElement() {
-		OSMElementImpl osmElement = new OSMElementImpl();
-		return osmElement;
 	}
 
 	/**

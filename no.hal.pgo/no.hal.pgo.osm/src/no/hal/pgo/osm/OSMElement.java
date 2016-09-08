@@ -23,7 +23,7 @@ import java.util.Date;
  * </ul>
  *
  * @see no.hal.pgo.osm.OsmPackage#getOSMElement()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface OSMElement extends Tags {

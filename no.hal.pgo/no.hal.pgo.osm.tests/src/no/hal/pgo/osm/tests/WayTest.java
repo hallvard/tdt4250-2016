@@ -1,19 +1,19 @@
 /**
  */
-package no.hal.pgo.osm.util.tests;
+package no.hal.pgo.osm.tests;
 
 import junit.textui.TestRunner;
 
 import no.hal.pgo.osm.OsmFactory;
-import no.hal.pgo.osm.Relation;
+import no.hal.pgo.osm.Way;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Relation</b></em>'.
+ * A test case for the model object '<em><b>Way</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public class RelationTest extends OSMElementTest {
+public class WayTest extends OSMElementTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -21,28 +21,28 @@ public class RelationTest extends OSMElementTest {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(RelationTest.class);
+		TestRunner.run(WayTest.class);
 	}
 
 	/**
-	 * Constructs a new Relation test case with the given name.
+	 * Constructs a new Way test case with the given name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RelationTest(String name) {
+	public WayTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Returns the fixture for this Relation test case.
+	 * Returns the fixture for this Way test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected Relation getFixture() {
-		return (Relation)fixture;
+	protected Way getFixture() {
+		return (Way)fixture;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class RelationTest extends OSMElementTest {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OsmFactory.eINSTANCE.createRelation());
+		setFixture(OsmFactory.eINSTANCE.createWay());
 	}
 
 	/**
@@ -67,4 +67,4 @@ public class RelationTest extends OSMElementTest {
 		setFixture(null);
 	}
 
-} //RelationTest
+} //WayTest

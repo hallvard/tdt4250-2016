@@ -68,7 +68,7 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	@Override
 	public EList<Tag> getTags() {
 		if (tags == null) {
-			tags = new EObjectContainmentEList<>(Tag.class, this, OsmPackage.TAGS__TAGS);
+			tags = new EObjectContainmentEList<Tag>(Tag.class, this, OsmPackage.TAGS__TAGS);
 		}
 		return tags;
 	}
