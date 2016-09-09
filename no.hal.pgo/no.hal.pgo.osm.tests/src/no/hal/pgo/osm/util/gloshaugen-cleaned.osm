@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API">
+<osm:osm version="0.6" generator="Overpass API" xmlns:osm="http://www.openstreetmap.org/v06/osm.ecore">
   <bounds minlat="63.4112" minlon="10.3927" maxlat="63.4233" maxlon="10.4125"/>
   <node id="78255" timestamp="2013-06-05T12:00:15.000+0200" user="Peter Bremer" version="5" changeset="16431472" uid="366321" lat="63.423897" lon="10.386319"/>
   <node id="78257" timestamp="2013-06-05T12:00:15.000+0200" user="Peter Bremer" version="6" changeset="16431472" uid="366321" lat="63.42291" lon="10.38917"/>
@@ -39903,4 +39903,4 @@
   </relation>
   <note/>
   <meta osm_base="2016-08-18T15:44:03Z"/>
-</osm>
+</osm:osm>

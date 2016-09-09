@@ -15,8 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import no.hal.pgo.osm.OsmPackage;
-import no.hal.pgo.osm.util.OsmResourceFactoryImpl;
-import no.hal.pgo.osm.util.OsmResourceImpl;
 
 public class OsmResourceImplTest {
 
@@ -27,7 +25,6 @@ public class OsmResourceImplTest {
 	public void configureOsm() {
 		resSet = new ResourceSetImpl();
 		resSet.getPackageRegistry().put(OsmPackage.eNS_URI, OsmPackage.eINSTANCE);
-		resSet.getPackageRegistry().put(null, OsmPackage.eINSTANCE);
 		resourceFactory = new OsmResourceFactoryImpl();
 		resSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("osm", resourceFactory);
 	}
