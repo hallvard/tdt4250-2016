@@ -1,0 +1,88 @@
+package no.hal.pgo.http;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.http.HttpService;
+import org.osgi.service.http.NamespaceException;
+
+@Component(immediate=true)
+public class ResourceEndPointProvider implements IResourceEndPointProvider {
+
+	private Collection<IResourceProvider> resourceProviders = new ArrayList<IResourceProvider>();
+
+	@Override
+	@Reference(
+			cardinality=ReferenceCardinality.MULTIPLE,
+			policy=ReferencePolicy.DYNAMIC,
+			unbind="removeResourceProvider"
+			)
+	public synchronized void addResourceProvider(IResourceProvider resourceProvider) {
+		resourceProviders.add(resourceProvider);
+		registerResourceProvider(resourceProvider);
+	}
+	@Override
+	public synchronized void removeResourceProvider(IResourceProvider resourceProvider) {
+		resourceProviders.remove(resourceProvider);
+		unregisterResourceProvider(resourceProvider);
+	}
+	protected void unregisterResourceProvider(IResourceProvider resourceProvider) {
+		unregisterAlias(resourceProvider.getName());
+	}
+
+	//
+
+	private Map<String, HttpServlet> registeredEndPoints = new HashMap<String, HttpServlet>();
+	
+	private HttpService httpService;
+	
+	@Reference(
+			cardinality=ReferenceCardinality.MANDATORY,
+			policy=ReferencePolicy.DYNAMIC,
+			unbind="unsetHttpService"
+	)
+	public synchronized void setHttpService(HttpService httpService) {
+		for (IResourceProvider resourceProvider : resourceProviders) {
+			registerResourceProvider(resourceProvider);
+		}
+		this.httpService = httpService;
+	}
+	protected void registerResourceProvider(IResourceProvider resourceProvider) {
+		String alias = resourceProvider.getName();
+		if (! registeredEndPoints.containsKey(alias)) {
+			try {
+				ResourceServlet servlet = new ResourceServlet(resourceProvider);
+				httpService.registerServlet("/" + alias, servlet, null, null);
+				System.out.println("Registered alias " + alias + " for " + resourceProvider.getResource().getURI());
+				registeredEndPoints.put(alias, servlet);
+			} catch (ServletException e) {
+			} catch (NamespaceException e) {
+			}
+		}
+	}
+
+	public synchronized void unsetHttpService(HttpService httpService) {
+		for (String alias : registeredEndPoints.keySet()) {
+			unregisterAlias(alias);
+		}
+		this.httpService = null;
+	}
+
+	protected void unregisterAlias(String alias) {
+		try {
+			System.out.println("Unregistered alias " + alias);
+			registeredEndPoints.remove("/" + alias);
+			httpService.unregister(alias);
+		} catch (Exception e) {
+		}
+	}
+}

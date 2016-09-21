@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.views">
+      <category
+            id="no.hal.pgo.ui.category"
+            name="Pgo">
+      </category>
+   </extension>
+
+   <extension point="org.eclipse.ui.views">
+      <view
+            category="no.hal.pgo.ui.category"
+            class="no.hal.pgo.ui.EOperationView"
+            id="no.hal.pgo.ui.EOperationView"
+            name="EOperation view"
+            restorable="true">
+      </view>
+   </extension>
+
+   <extension point="org.eclipse.ui.views">
+      <view
+            category="no.hal.pgo.ui.category"
+            class="no.hal.pgo.ui.EditorResourceProvidersView"
+            id="no.hal.pgo.ui.EditorResourceProvidersView"
+            name="Editor resource providers view"
+            restorable="true">
+      </view>
+   </extension>
+</plugin>

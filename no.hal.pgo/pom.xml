@@ -72,6 +72,8 @@
 
 		<module>no.hal.pgo.osm.edit</module>
 		<module>no.hal.pgo.osm.editor</module>
+		<module>no.hal.pgo.http</module>
+		<module>no.hal.pgo.ui</module>
 	</modules>
 
 </project>

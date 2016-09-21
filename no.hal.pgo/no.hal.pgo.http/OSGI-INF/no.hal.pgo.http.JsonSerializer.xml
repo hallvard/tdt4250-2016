@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="no.hal.pgo.http.JsonSerializer">
+   <service>
+      <provide interface="no.hal.pgo.http.IResponseSerializer"/>
+   </service>
+   <reference bind="setLogger" cardinality="0..1" interface="org.osgi.service.log.LogService" name="Logger" policy="dynamic" unbind="unsetLogger"/>
+   <implementation class="no.hal.pgo.http.JsonSerializer"/>
+</scr:component>
