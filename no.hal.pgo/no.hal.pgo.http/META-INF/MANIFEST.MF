@@ -7,7 +7,8 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: no.hal.pgo.http
+Export-Package: no.hal.pgo.http,
+ no.hal.pgo.http.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  com.fasterxml.jackson.core.jackson-core;bundle-version="2.5.0",
  com.fasterxml.jackson.core.jackson-databind;bundle-version="2.5.0",
@@ -22,6 +23,8 @@ Import-Package: javax.servlet;version="3.1.0",
  org.osgi.service.component.annotations;version="1.2.0",
  org.osgi.service.http;version="1.2.1",
  org.osgi.service.log;version="1.3.0"
-Service-Component: OSGI-INF/no.hal.pgo.http.JsonSerializer.xml,
- OSGI-INF/no.hal.pgo.http.ResourceEndPointProvider.xml
+Service-Component: OSGI-INF/no.hal.pgo.http.ResourceEndPointProvider.xml,
+ OSGI-INF/no.hal.pgo.http.util.DefaultRequestPathResolver.xml,
+ OSGI-INF/no.hal.pgo.http.util.DefaultRequestQueryExecutor.xml,
+ OSGI-INF/no.hal.pgo.http.util.JsonSerializer.xml
 Bundle-ActivationPolicy: lazy

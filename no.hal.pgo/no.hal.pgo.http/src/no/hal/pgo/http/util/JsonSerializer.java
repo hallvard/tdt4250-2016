@@ -1,13 +1,13 @@
-package no.hal.pgo.http;
+package no.hal.pgo.http.util;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -22,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
+import no.hal.pgo.http.IResponseSerializer;
 
 @SuppressWarnings("serial")
 @Component
@@ -66,14 +68,8 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 		}
 	}
 
-	protected Map<String, Object> getFeatureValues(EObject eObject) {
-		Map<String, Object> featureValues = new HashMap<String, Object>();
-		for (EStructuralFeature feature : eObject.eClass().getEAllStructuralFeatures()) {
-			featureValues.put(feature.getName(), eObject.eGet(feature));
-		}
-		return featureValues;
-	}
-	
+	public static final String JSON_SERIALIZER_ANNOTATION_SOURCE = JsonSerializer.class.getName();
+
 	@Override
 	public void serialize(EObject eObject, JsonGenerator generator, SerializerProvider serializerProvider) throws IOException, JsonGenerationException {
 		int count = 0;
@@ -107,12 +103,13 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 		occurStack.push(eObject);
 		generator.writeStartObject();
 		try {
-			Map<String, Object> featureValues = getFeatureValues(eObject);
-			for (Map.Entry<String, Object> entry : featureValues.entrySet()) {
-				String featureName = entry.getKey();
-				Object value = entry.getValue();
-				generator.writeFieldName(featureName);
-				generator.writeObject(value);
+			for (EStructuralFeature feature : eObject.eClass().getEAllStructuralFeatures()) {
+				if (! excludeFeature(feature)) {
+					String name = getFieldName(feature);
+					generator.writeFieldName(name);
+					Object value = eObject.eGet(feature);
+					generator.writeObject(value);
+				}
 			}
 		} catch (RuntimeException e) {
 			if (logger != null) {
@@ -122,5 +119,18 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 			generator.writeEndObject();
 			occurStack.pop();
 		}
-	}	
+	}
+
+	protected String getFieldName(EStructuralFeature feature) {
+		String altName = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "name");
+		return altName != null ? altName : feature.getName();
+	}
+
+	protected boolean excludeFeature(EStructuralFeature feature) {
+		if (feature instanceof EReference && (! ((EReference) feature).isContainment())) {
+			return true;
+		}
+		String include = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "include"), exclude = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "exclude");
+		return (exclude != null && Boolean.valueOf(exclude) == Boolean.TRUE) || (include != null && Boolean.valueOf(include) == Boolean.FALSE);
+	}
 }

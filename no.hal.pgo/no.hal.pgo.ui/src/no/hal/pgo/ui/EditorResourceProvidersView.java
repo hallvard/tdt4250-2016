@@ -21,11 +21,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 
-import no.hal.pgo.http.DefaultRequestPathResolver;
-import no.hal.pgo.http.DefaultRequestQueryExecutor;
 import no.hal.pgo.http.IResourceEndPointProvider;
-import no.hal.pgo.http.JsonSerializer;
-import no.hal.pgo.http.ResourceProvider;
+import no.hal.pgo.http.util.ResourceProvider;
 
 public class EditorResourceProvidersView extends AbstractSelectionView {
 
@@ -44,23 +41,18 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 		this.viewer = new CheckboxTreeViewer(parent);
 		this.viewer.getTree().setHeaderVisible(true);
 		this.viewer.setContentProvider(new ITreeContentProvider() {
-			
 			@Override
 			public Object[] getElements(Object inputElement) {
 				return ((Map<IEditingDomainProvider, ?>) inputElement).keySet().toArray();
 			}
-
 			@Override
 			public boolean hasChildren(Object element) {
-				// TODO Auto-generated method stub
 				return false;
 			}
-
 			@Override
 			public Object getParent(Object element) {
 				return null;
 			}
-			
 			@Override
 			public Object[] getChildren(Object parentElement) {
 				return null;
@@ -103,7 +95,7 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 				if (event.getChecked()) {
 					addResourceProvider((IEditingDomainProvider) event.getElement());
 				} else {
-					removeComponent((IEditingDomainProvider) event.getElement());					
+					removeResourceProvider((IEditingDomainProvider) event.getElement());					
 				}
 			}
 		});
@@ -146,7 +138,7 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 		Resource resource = getResource(editingDomainProvider);
 		if (resource != null) {
 			if (hasResourceProvider(editingDomainProvider)) {
-				removeComponent(editingDomainProvider);
+				removeResourceProvider(editingDomainProvider);
 			}
 			resources.remove(editingDomainProvider);
 		}
@@ -168,21 +160,19 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 		IResourceEndPointProvider endPointProvider = getResourceEndPointProvider();
 		if (endPointProvider != null && resource != null) {
 			ResourceProvider resourceProvider = new ResourceProvider(resource);
-			resourceProvider.setRequestPathResolver(new DefaultRequestPathResolver());
-			DefaultRequestQueryExecutor requestQueryExecutor = new DefaultRequestQueryExecutor();
-			requestQueryExecutor.setReferenceResolver(null);
-			resourceProvider.setRequestQueryExecutor(requestQueryExecutor);
-			resourceProvider.setResponseSerializer(new JsonSerializer());
 			endPointProvider.addResourceProvider(resourceProvider);
-			resourceProviders.put(resources.get(editingDomainProvider), resourceProvider);
+			String key = resources.get(editingDomainProvider);
+			resourceProviders.put(key, resourceProvider);
 		}
 		updateView();
 	}
 
-	protected void removeComponent(IEditingDomainProvider editingDomainProvider) {
+	protected void removeResourceProvider(IEditingDomainProvider editingDomainProvider) {
 		IResourceEndPointProvider endPointProvider = getResourceEndPointProvider();
 		if (endPointProvider != null) {
-			endPointProvider.removeResourceProvider(resourceProviders.get(resources.get(editingDomainProvider)));
+			String key = resources.get(editingDomainProvider);
+			endPointProvider.removeResourceProvider(resourceProviders.get(key));
+			resourceProviders.remove(key);
 		}
 		updateView();
 	}

@@ -3,6 +3,7 @@ package no.hal.pgo.http;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+
+import no.hal.pgo.http.util.RequestHelper;
 
 @SuppressWarnings("serial")
 public class ResourceServlet extends HttpServlet {
@@ -24,6 +26,12 @@ public class ResourceServlet extends HttpServlet {
 		this.resourceProvider = resourceProvider;
 	}
 
+	protected IRequestHelper requestHelper;
+	
+	public void setRequestHelper(IRequestHelper requestHelper) {
+		this.requestHelper = requestHelper;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
@@ -33,10 +41,17 @@ public class ResourceServlet extends HttpServlet {
 		try {
 			Resource resource = resourceProvider.getResource();
 			String[] segments = resourcePath.toArray(new String[resourcePath.size()]);
-			EObject eObject = resourceProvider.getRequestPathResolver().getEObjectForPath(resource, segments);
+			IRequestPathResolver requestPathResolver = RequestHelper.get(resourceProvider.getRequestPathResolver(), requestHelper.getRequestPathResolver());
+			Object object = requestPathResolver.getObjectForPath(resource, segments);
 			Map<String, Object> params = decodeQuery(req);
-			Object result = (eObject != null && op != null  ? resourceProvider.getRequestQueryExecutor().getRequestQueryResult(eObject, op, params) : eObject);
-			resourceProvider.getResponseSerializer().serialize(result, resp.getWriter());
+			Object result = object;
+			if (op != null) {
+				Collection<?> target = (object instanceof Collection<?> ? (Collection<?>) object : Collections.singletonList(object));
+				IRequestQueryExecutor requestQueryExecutor = RequestHelper.get(resourceProvider.getRequestQueryExecutor(), requestHelper.getRequestQueryExecutor());
+				result = requestQueryExecutor.getRequestQueryResult(target, op, params);
+			}
+			IResponseSerializer responseSerializer = RequestHelper.get(resourceProvider.getResponseSerializer(), requestHelper.getResponseSerializer());
+			responseSerializer.serialize(result, resp.getWriter());
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}

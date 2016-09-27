@@ -15,8 +15,10 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
+import no.hal.pgo.http.util.RequestHelper;
+
 @Component(immediate=true)
-public class ResourceEndPointProvider implements IResourceEndPointProvider {
+public class ResourceEndPointProvider extends RequestHelper implements IResourceEndPointProvider {
 
 	private Collection<IResourceProvider> resourceProviders = new ArrayList<IResourceProvider>();
 
@@ -39,6 +41,42 @@ public class ResourceEndPointProvider implements IResourceEndPointProvider {
 		unregisterAlias(resourceProvider.getName());
 	}
 
+	@Override
+	@Reference(
+			policy=ReferencePolicy.DYNAMIC,
+			unbind="unsetRequestPathResolver"
+			)	
+	public void setRequestPathResolver(IRequestPathResolver requestPathResolver) {
+		super.setRequestPathResolver(requestPathResolver);
+	}
+	public void unsetRequestPathResolver(IRequestPathResolver requestPathResolver) {
+		setRequestPathResolver(null);
+	}
+
+	@Override
+	@Reference(
+			policy=ReferencePolicy.DYNAMIC,
+			unbind="unsetRequestQueryExecutor"
+			)	
+	public void setRequestQueryExecutor(IRequestQueryExecutor requestQueryExecutor) {
+		super.setRequestQueryExecutor(requestQueryExecutor);
+	}
+	public void unsetRequestQueryExecutor(IRequestQueryExecutor requestQueryExecutor) {
+		setRequestQueryExecutor(null);
+	}
+	
+	@Override
+	@Reference(
+			policy=ReferencePolicy.DYNAMIC,
+			unbind="unsetResponseSerializer"
+			)	
+	public void setResponseSerializer(IResponseSerializer responseSerializer) {
+		super.setResponseSerializer(responseSerializer);
+	}
+	public void unsetResponseSerializer(IResponseSerializer responseSerializer) {
+		setResponseSerializer(null);
+	}
+	
 	//
 
 	private Map<String, HttpServlet> registeredEndPoints = new HashMap<String, HttpServlet>();
@@ -61,6 +99,7 @@ public class ResourceEndPointProvider implements IResourceEndPointProvider {
 		if (! registeredEndPoints.containsKey(alias)) {
 			try {
 				ResourceServlet servlet = new ResourceServlet(resourceProvider);
+				servlet.setRequestHelper(this);
 				httpService.registerServlet("/" + alias, servlet, null, null);
 				System.out.println("Registered alias " + alias + " for " + resourceProvider.getResource().getURI());
 				registeredEndPoints.put(alias, servlet);
@@ -80,8 +119,8 @@ public class ResourceEndPointProvider implements IResourceEndPointProvider {
 	protected void unregisterAlias(String alias) {
 		try {
 			System.out.println("Unregistered alias " + alias);
-			registeredEndPoints.remove("/" + alias);
-			httpService.unregister(alias);
+			registeredEndPoints.remove(alias);
+			httpService.unregister("/" + alias);
 		} catch (Exception e) {
 		}
 	}

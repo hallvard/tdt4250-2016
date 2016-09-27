@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="no.hal.pgo.http.util.DefaultRequestPathResolver">
+   <service>
+      <provide interface="no.hal.pgo.http.IRequestPathResolver"/>
+   </service>
+   <reference bind="addReferenceResolver" cardinality="0..n" interface="no.hal.pgo.http.IReferenceResolver" name="ReferenceResolver" policy="dynamic" unbind="removeReferenceResolver"/>
+   <implementation class="no.hal.pgo.http.util.DefaultRequestPathResolver"/>
+</scr:component>

@@ -4,6 +4,9 @@
       <provide interface="no.hal.pgo.http.IResourceEndPointProvider"/>
    </service>
    <reference bind="setHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" policy="dynamic" unbind="unsetHttpService"/>
+   <reference bind="setRequestPathResolver" cardinality="1..1" interface="no.hal.pgo.http.IRequestPathResolver" name="RequestPathResolver" policy="dynamic" unbind="unsetRequestPathResolver"/>
+   <reference bind="setRequestQueryExecutor" cardinality="1..1" interface="no.hal.pgo.http.IRequestQueryExecutor" name="RequestQueryExecutor" policy="dynamic" unbind="unsetRequestQueryExecutor"/>
    <reference bind="addResourceProvider" cardinality="0..n" interface="no.hal.pgo.http.IResourceProvider" name="ResourceProvider" policy="dynamic" unbind="removeResourceProvider"/>
+   <reference bind="setResponseSerializer" cardinality="1..1" interface="no.hal.pgo.http.IResponseSerializer" name="ResponseSerializer" policy="dynamic" unbind="unsetResponseSerializer"/>
    <implementation class="no.hal.pgo.http.ResourceEndPointProvider"/>
 </scr:component>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pgohttpestest:Root
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:pgohttpestest="platform:/plugin/no.hal.pgo.http.test"
+    xsi:schemaLocation="platform:/plugin/no.hal.pgo.http.test PgoHttpTest.ecore">
+  <as name="a1"
+      value="2"/>
+  <as name="a2"
+      value="3"/>
+  <as name="a3"
+      value="4"/>
+  <b>
+    <cs name="c1"/>
+    <cs name="c2"/>
+    <cs xsi:type="pgohttpestest:D"
+        name="d1"/>
+    <cs name="c3"/>
+  </b>
+</pgohttpestest:Root>

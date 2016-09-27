@@ -25,7 +25,7 @@
 		<repository>
 			<id>emfjson</id>
 			<layout>p2</layout>
-			<url>http://ghillairet.github.com/p2</url>
+			<url>http://ghillairet.github.io/p2</url>
 		</repository>
 	</repositories>
 
@@ -73,7 +73,11 @@
 		<module>no.hal.pgo.osm.edit</module>
 		<module>no.hal.pgo.osm.editor</module>
 		<module>no.hal.pgo.http</module>
+		<module>no.hal.pgo.http.tests</module>
 		<module>no.hal.pgo.ui</module>
+
+		<module>no.hal.pgo.feature</module>
+		<module>no.hal.pgo.repository</module>
 	</modules>
 
 </project>
