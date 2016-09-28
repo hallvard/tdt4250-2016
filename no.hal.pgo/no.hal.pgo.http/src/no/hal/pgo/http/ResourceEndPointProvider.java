@@ -2,11 +2,8 @@ package no.hal.pgo.http;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -79,47 +76,34 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 	
 	//
 
-	private Map<String, HttpServlet> registeredEndPoints = new HashMap<String, HttpServlet>();
-	
 	private HttpService httpService;
 	
-	@Reference(
-			cardinality=ReferenceCardinality.MANDATORY,
-			policy=ReferencePolicy.DYNAMIC,
-			unbind="unsetHttpService"
-	)
-	public synchronized void setHttpService(HttpService httpService) {
+	@Reference(cardinality=ReferenceCardinality.MANDATORY)
+	protected void setHttpService(HttpService httpService) {
 		for (IResourceProvider resourceProvider : resourceProviders) {
 			registerResourceProvider(resourceProvider);
 		}
 		this.httpService = httpService;
 	}
-	protected void registerResourceProvider(IResourceProvider resourceProvider) {
-		String alias = resourceProvider.getName();
-		if (! registeredEndPoints.containsKey(alias)) {
-			try {
-				ResourceServlet servlet = new ResourceServlet(resourceProvider);
-				servlet.setRequestHelper(this);
-				httpService.registerServlet("/" + alias, servlet, null, null);
-				System.out.println("Registered alias " + alias + " for " + resourceProvider.getResource().getURI());
-				registeredEndPoints.put(alias, servlet);
-			} catch (ServletException e) {
-			} catch (NamespaceException e) {
-			}
-		}
+	protected void unsetHttpService(HttpService httpService) {
+		this.httpService = null;	
 	}
 
-	public synchronized void unsetHttpService(HttpService httpService) {
-		for (String alias : registeredEndPoints.keySet()) {
-			unregisterAlias(alias);
+	protected void registerResourceProvider(IResourceProvider resourceProvider) {
+		String alias = resourceProvider.getName();
+		try {
+			ResourceServlet servlet = new ResourceServlet(resourceProvider);
+			servlet.setRequestHelper(this);
+			httpService.registerServlet("/" + alias, servlet, null, null);
+			System.out.println("Registered alias " + alias + " for " + resourceProvider.getResource().getURI());
+		} catch (ServletException e) {
+		} catch (NamespaceException e) {
 		}
-		this.httpService = null;
 	}
 
 	protected void unregisterAlias(String alias) {
 		try {
 			System.out.println("Unregistered alias " + alias);
-			registeredEndPoints.remove(alias);
 			httpService.unregister("/" + alias);
 		} catch (Exception e) {
 		}

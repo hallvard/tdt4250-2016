@@ -5,12 +5,15 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
@@ -60,17 +63,39 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 		});
 		TreeViewerColumn nameColumn = new TreeViewerColumn(viewer, SWT.NONE);
 		nameColumn.getColumn().setText("Name (alias)");
-		nameColumn.getColumn().setWidth(100);
+		nameColumn.getColumn().setWidth(150);
 		nameColumn.setLabelProvider(new CellLabelProvider() {
 			@Override
 			public void update(ViewerCell cell) {
-				IEditingDomainProvider editingDomainProvider = (IEditingDomainProvider) cell.getElement();
-				cell.setText(resources.get(editingDomainProvider));
+				cell.setText(resources.get(cell.getElement()));
 			}
 		});
+		nameColumn.setEditingSupport(new EditingSupport(viewer) {
+			@Override
+			protected void setValue(Object element, Object value) {
+				String s = String.valueOf(value);
+				IEditingDomainProvider editingDomainProvider = (IEditingDomainProvider) element;
+				changeResourceName(editingDomainProvider, s.length() > 0 ? s : null);
+			}
+			@Override
+			protected Object getValue(Object element) {
+				return resources.get(element);
+			}
+			
+			@Override
+			protected CellEditor getCellEditor(Object element) {
+				return new TextCellEditor((Composite) viewer.getControl());
+			}
+
+			@Override
+			protected boolean canEdit(Object element) {
+				return true;
+			}
+		});
+		
 		TreeViewerColumn uriColumn = new TreeViewerColumn(viewer, SWT.NONE);
 		uriColumn.getColumn().setText("URI");
-		uriColumn.getColumn().setWidth(500);
+		uriColumn.getColumn().setWidth(800);
 		uriColumn.setLabelProvider(new CellLabelProvider() {
 			@Override
 			public void update(ViewerCell cell) {
@@ -111,6 +136,10 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 		viewer.refresh();
 	}
 
+	protected void updateView(IEditingDomainProvider editingDomainProvider) {
+		viewer.update(editingDomainProvider, null);
+	}
+
 	@Override
 	public void partActivated(IWorkbenchPart part) {
 		super.partActivated(part);
@@ -130,7 +159,7 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 	protected void addResource(IEditingDomainProvider editingDomainProvider) {
 		Resource resource = getResource(editingDomainProvider);
 		if (resource != null) {
-			resources.put(editingDomainProvider, resource.getURI().lastSegment());
+			resources.put(editingDomainProvider, ResourceProvider.defaultName(resource.getURI()));
 		}
 	}
 
@@ -142,7 +171,7 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 			}
 			resources.remove(editingDomainProvider);
 		}
-		updateView();
+		updateView(editingDomainProvider);
 	}
 	
 	protected boolean hasResourceProvider(IEditingDomainProvider editingDomainProvider) {
@@ -155,16 +184,29 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 		return (serviceReference != null ? bundleContext.getService(serviceReference) : null);
 	}
 
+	protected void changeResourceName(IEditingDomainProvider editingDomainProvider, String newName) {
+		if (hasResourceProvider(editingDomainProvider)) {
+			removeResourceProvider(editingDomainProvider);
+			resources.put(editingDomainProvider, newName);
+			addResourceProvider(editingDomainProvider);					
+		} else {
+			resources.put(editingDomainProvider, newName);
+			updateView(editingDomainProvider);
+		}
+	}
+
 	protected void addResourceProvider(IEditingDomainProvider editingDomainProvider) {
 		Resource resource = getResource(editingDomainProvider);
 		IResourceEndPointProvider endPointProvider = getResourceEndPointProvider();
 		if (endPointProvider != null && resource != null) {
 			ResourceProvider resourceProvider = new ResourceProvider(resource);
+			String name = resources.get(editingDomainProvider);
+			resourceProvider.setName(name);
 			endPointProvider.addResourceProvider(resourceProvider);
-			String key = resources.get(editingDomainProvider);
+			String key = name;
 			resourceProviders.put(key, resourceProvider);
 		}
-		updateView();
+		updateView(editingDomainProvider);
 	}
 
 	protected void removeResourceProvider(IEditingDomainProvider editingDomainProvider) {
@@ -174,7 +216,7 @@ public class EditorResourceProvidersView extends AbstractSelectionView {
 			endPointProvider.removeResourceProvider(resourceProviders.get(key));
 			resourceProviders.remove(key);
 		}
-		updateView();
+		updateView(editingDomainProvider);
 	}
 
 	@Override

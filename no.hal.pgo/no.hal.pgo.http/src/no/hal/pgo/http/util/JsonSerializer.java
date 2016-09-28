@@ -9,10 +9,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.log.LogService;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -28,22 +24,6 @@ import no.hal.pgo.http.IResponseSerializer;
 @SuppressWarnings("serial")
 @Component
 public class JsonSerializer extends StdSerializer<EObject> implements IResponseSerializer {
-	
-	private LogService logger;
-	
-	@Reference(
-			cardinality=ReferenceCardinality.OPTIONAL,
-			policy=ReferencePolicy.DYNAMIC,
-			unbind="unsetLogger"
-			)
-	public synchronized void setLogger(LogService logger) {
-		this.logger = logger;
-	}
-	public synchronized void unsetLogger(LogService logger) {
-		this.logger = null;
-	}
-
-	//
 	
 	private ObjectMapper objectMapper;
 	
@@ -88,9 +68,6 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 				try {
 					ref = "???";
 				} catch (Exception e) {
-					if (logger != null) {
-						logger.log(LogService.LOG_ERROR, "Exception when providing reference for " + eObject, e);
-					}
 				}
 				if (ref != null) {
 					generator.writeString(ref);
@@ -104,7 +81,11 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 		generator.writeStartObject();
 		try {
 			for (EStructuralFeature feature : eObject.eClass().getEAllStructuralFeatures()) {
-				if (! excludeFeature(feature)) {
+				boolean isContainment = true;
+				if (feature instanceof EReference) {
+					isContainment = ((EReference) feature).isContainment();
+				}
+				if (isContainment ? (! excludeFeature(feature)) : includeFeature(feature)) {
 					String name = getFieldName(feature);
 					generator.writeFieldName(name);
 					Object value = eObject.eGet(feature);
@@ -112,9 +93,6 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 				}
 			}
 		} catch (RuntimeException e) {
-			if (logger != null) {
-				logger.log(LogService.LOG_ERROR, "Exception when serializing " + eObject, e);
-			}
 		} finally {
 			generator.writeEndObject();
 			occurStack.pop();
@@ -126,11 +104,16 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 		return altName != null ? altName : feature.getName();
 	}
 
-	protected boolean excludeFeature(EStructuralFeature feature) {
-		if (feature instanceof EReference && (! ((EReference) feature).isContainment())) {
-			return true;
-		}
+	protected boolean cludeFeature(EStructuralFeature feature, boolean excludeValue, boolean includeValue) {
 		String include = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "include"), exclude = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "exclude");
-		return (exclude != null && Boolean.valueOf(exclude) == Boolean.TRUE) || (include != null && Boolean.valueOf(include) == Boolean.FALSE);
+		return (exclude != null && Boolean.valueOf(exclude) == excludeValue) || (include != null && Boolean.valueOf(include) == includeValue);
+	}
+	
+	protected boolean excludeFeature(EStructuralFeature feature) {
+		return cludeFeature(feature, true, false);
+	}
+
+	protected boolean includeFeature(EStructuralFeature feature) {
+		return cludeFeature(feature, false, true);
 	}
 }
