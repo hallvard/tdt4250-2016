@@ -21,11 +21,19 @@
 			<id>eclipse-neon</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/neon</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
 		</repository>
 		<repository>
 			<id>emfjson</id>
 			<layout>p2</layout>
-			<url>http://ghillairet.github.io/p2</url>
+			<url>http://ghillairet.github.com/p2</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
 		</repository>
 	</repositories>
 
