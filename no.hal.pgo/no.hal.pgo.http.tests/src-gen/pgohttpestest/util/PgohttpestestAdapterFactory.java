@@ -88,6 +88,10 @@ public class PgohttpestestAdapterFactory extends AdapterFactoryImpl {
 				return createDAdapter();
 			}
 			@Override
+			public Adapter casePriv(Priv object) {
+				return createPrivAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -174,6 +178,20 @@ public class PgohttpestestAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link pgohttpestest.Priv <em>Priv</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see pgohttpestest.Priv
+	 * @generated
+	 */
+	public Adapter createPrivAdapter() {
 		return null;
 	}
 

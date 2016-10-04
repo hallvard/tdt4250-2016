@@ -69,6 +69,7 @@ public class PgohttpestestFactory extends EFactoryImpl {
 			case PgohttpestestPackage.B: return createB();
 			case PgohttpestestPackage.C: return createC();
 			case PgohttpestestPackage.D: return createD();
+			case PgohttpestestPackage.PRIV: return createPriv();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -122,6 +123,16 @@ public class PgohttpestestFactory extends EFactoryImpl {
 	public D createD() {
 		D d = new D();
 		return d;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Priv createPriv() {
+		Priv priv = new Priv();
+		return priv;
 	}
 
 	/**

@@ -26,13 +26,16 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 			unbind="removeResourceProvider"
 			)
 	public synchronized void addResourceProvider(IResourceProvider resourceProvider) {
-		resourceProviders.add(resourceProvider);
-		registerResourceProvider(resourceProvider);
+		if (! resourceProviders.contains(resourceProvider)) {
+			resourceProviders.add(resourceProvider);
+			registerResourceProvider(resourceProvider);
+		}
 	}
 	@Override
 	public synchronized void removeResourceProvider(IResourceProvider resourceProvider) {
-		resourceProviders.remove(resourceProvider);
-		unregisterResourceProvider(resourceProvider);
+		if (resourceProviders.remove(resourceProvider)) {
+			unregisterResourceProvider(resourceProvider);
+		}
 	}
 	protected void unregisterResourceProvider(IResourceProvider resourceProvider) {
 		unregisterAlias(resourceProvider.getName());
@@ -95,7 +98,6 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 			ResourceServlet servlet = new ResourceServlet(resourceProvider);
 			servlet.setRequestHelper(this);
 			httpService.registerServlet("/" + alias, servlet, null, null);
-			System.out.println("Registered alias " + alias + " for " + resourceProvider.getResource().getURI());
 		} catch (ServletException e) {
 		} catch (NamespaceException e) {
 		}
@@ -103,7 +105,6 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 
 	protected void unregisterAlias(String alias) {
 		try {
-			System.out.println("Unregistered alias " + alias);
 			httpService.unregister("/" + alias);
 		} catch (Exception e) {
 		}

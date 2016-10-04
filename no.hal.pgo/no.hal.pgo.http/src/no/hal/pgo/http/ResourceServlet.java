@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.emf.ecore.resource.Resource;
-
 import no.hal.pgo.http.util.RequestHelper;
 
 @SuppressWarnings("serial")
@@ -39,10 +37,10 @@ public class ResourceServlet extends HttpServlet {
 		Collection<String> resourcePath = new ArrayList<String>();
 		String op = getResourcePathAndOp(path, resourcePath);
 		try {
-			Resource resource = resourceProvider.getResource();
+			Collection<?> objects = resourceProvider.getRootObjects();
 			String[] segments = resourcePath.toArray(new String[resourcePath.size()]);
 			IRequestPathResolver requestPathResolver = RequestHelper.get(resourceProvider.getRequestPathResolver(), requestHelper.getRequestPathResolver());
-			Object object = requestPathResolver.getObjectForPath(resource, segments);
+			Object object = requestPathResolver.getObjectForPath(objects, segments);
 			Map<String, Object> params = decodeQuery(req);
 			Object result = object;
 			if (op != null) {

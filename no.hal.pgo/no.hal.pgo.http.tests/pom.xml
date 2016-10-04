@@ -11,7 +11,7 @@
   </parent>
   
   <build>
-    <sourceDirectory>src, tests</sourceDirectory>
+    <sourceDirectory>src, src-gen</sourceDirectory>
     <resources>
       <resource>
         <directory>src</directory>

@@ -1,7 +1,7 @@
 package no.hal.pgo.http;
 
-import org.eclipse.emf.ecore.resource.Resource;
+import java.util.Collection;
 
 public interface IRequestPathResolver {
-	public Object getObjectForPath(Resource resource, String... segments);
+	public Object getObjectForPath(Collection<? extends Object> rootObjects, String... segments);
 }

@@ -13,8 +13,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="B">
     <eOperations name="lastC" eType="#//C"/>
+    <eOperations name="priv2" eType="#//Priv"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cs" upperBound="-1" eType="#//C"
         containment="true" eKeys="#//C/name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priv1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="no.hal.pgo.http.util.RequestSupport">
+        <details key="exclude" value="true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="C">
     <eOperations name="rotName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -24,4 +30,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="D" eSuperTypes="#//C"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Priv">
+    <eAnnotations source="no.hal.pgo.http.util.RequestSupport">
+      <details key="exclude" value="true"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

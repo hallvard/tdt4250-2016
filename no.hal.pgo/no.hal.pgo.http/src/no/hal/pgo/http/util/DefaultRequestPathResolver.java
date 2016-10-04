@@ -1,6 +1,7 @@
 package no.hal.pgo.http.util;
 
-import org.eclipse.emf.ecore.resource.Resource;
+import java.util.Collection;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -27,8 +28,8 @@ public class DefaultRequestPathResolver extends CompositeReferenceResolver imple
 	}
 	
 	@Override
-	public Object getObjectForPath(Resource resource, String... segments) {
-		RequestSupport requestSupport = new RequestSupport(resource.getContents());
+	public Object getObjectForPath(Collection<? extends Object> rootObjects, String... segments) {
+		RequestSupport requestSupport = new RequestSupport(rootObjects);
 		requestSupport.setReferenceResolver(this);
 		for (int i = 0; i < segments.length; i++) {
 			String segment = segments[i];

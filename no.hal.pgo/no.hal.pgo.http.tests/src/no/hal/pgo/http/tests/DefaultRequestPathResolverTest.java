@@ -1,6 +1,7 @@
 package no.hal.pgo.http.tests;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,9 +20,9 @@ public class DefaultRequestPathResolverTest extends AbstractPgoHttpTest {
 		requestPathResolver = new DefaultRequestPathResolver();
 		requestPathResolver.addReferenceResolver(new NameReferenceResolver());
 	}
-	
+
 	protected Object getObjects(String... segments) {
-		return requestPathResolver.getObjectForPath(resource, segments);
+		return requestPathResolver.getObjectForPath(resource.getContents(), segments);
 	}
 
 	@Test
@@ -90,5 +91,11 @@ public class DefaultRequestPathResolverTest extends AbstractPgoHttpTest {
 		test1(root.getAs().get(0), getObjects("as", "value<3"));
 		testN(Arrays.asList(root.getAs().get(0), root.getAs().get(2)), getObjects("as", "value<>3"));
 		testN(Arrays.asList(root.getAs().get(0), root.getAs().get(2)), getObjects("as", "value><3"));
+	}
+
+	@Test
+	public void testPriv() {
+		testN(Collections.emptyList(), getObjects("b", "priv1"));
+		testN(Collections.emptyList(), getObjects("b", "priv2"));
 	}
 }

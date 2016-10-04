@@ -85,7 +85,7 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 				if (feature instanceof EReference) {
 					isContainment = ((EReference) feature).isContainment();
 				}
-				if (isContainment ? (! excludeFeature(feature)) : includeFeature(feature)) {
+				if (isContainment ? (! AnnotationUtil.excludeElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE)) : AnnotationUtil.includeElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE)) {
 					String name = getFieldName(feature);
 					generator.writeFieldName(name);
 					Object value = eObject.eGet(feature);
@@ -102,18 +102,5 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 	protected String getFieldName(EStructuralFeature feature) {
 		String altName = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "name");
 		return altName != null ? altName : feature.getName();
-	}
-
-	protected boolean cludeFeature(EStructuralFeature feature, boolean excludeValue, boolean includeValue) {
-		String include = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "include"), exclude = EcoreUtil.getAnnotation(feature, JSON_SERIALIZER_ANNOTATION_SOURCE, "exclude");
-		return (exclude != null && Boolean.valueOf(exclude) == excludeValue) || (include != null && Boolean.valueOf(include) == includeValue);
-	}
-	
-	protected boolean excludeFeature(EStructuralFeature feature) {
-		return cludeFeature(feature, true, false);
-	}
-
-	protected boolean includeFeature(EStructuralFeature feature) {
-		return cludeFeature(feature, false, true);
 	}
 }

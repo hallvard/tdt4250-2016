@@ -171,13 +171,22 @@ public class PgohttpestestPackage extends EPackageImpl {
 	public static final int B__CS = 0;
 
 	/**
+	 * The feature id for the '<em><b>Priv1</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int B__PRIV1 = 1;
+
+	/**
 	 * The number of structural features of the '<em>B</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int B_FEATURE_COUNT = 1;
+	public static final int B_FEATURE_COUNT = 2;
 
 	/**
 	 * The operation id for the '<em>Last C</em>' operation.
@@ -189,13 +198,22 @@ public class PgohttpestestPackage extends EPackageImpl {
 	public static final int B___LAST_C = 0;
 
 	/**
+	 * The operation id for the '<em>Priv2</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int B___PRIV2 = 1;
+
+	/**
 	 * The number of operations of the '<em>B</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int B_OPERATION_COUNT = 1;
+	public static final int B_OPERATION_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link pgohttpestest.C <em>C</em>}' class.
@@ -290,6 +308,43 @@ public class PgohttpestestPackage extends EPackageImpl {
 	public static final int D_OPERATION_COUNT = C_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link pgohttpestest.Priv <em>Priv</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see pgohttpestest.Priv
+	 * @see pgohttpestest.PgohttpestestPackage#getPriv()
+	 * @generated
+	 */
+	public static final int PRIV = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PRIV__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Priv</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PRIV_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Priv</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PRIV_OPERATION_COUNT = 0;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -323,6 +378,13 @@ public class PgohttpestestPackage extends EPackageImpl {
 	 * @generated
 	 */
 	private EClass dEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass privEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -489,6 +551,20 @@ public class PgohttpestestPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link pgohttpestest.B#getPriv1 <em>Priv1</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Priv1</em>'.
+	 * @see pgohttpestest.B#getPriv1()
+	 * @see #getB()
+	 * @generated
+	 */
+	public EAttribute getB_Priv1() {
+		return (EAttribute)bEClass.getEStructuralFeatures().get(1);
+	}
+
+
+	/**
 	 * Returns the meta object for the '{@link pgohttpestest.B#lastC() <em>Last C</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -498,6 +574,19 @@ public class PgohttpestestPackage extends EPackageImpl {
 	 */
 	public EOperation getB__LastC() {
 		return bEClass.getEOperations().get(0);
+	}
+
+
+	/**
+	 * Returns the meta object for the '{@link pgohttpestest.B#priv2() <em>Priv2</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Priv2</em>' operation.
+	 * @see pgohttpestest.B#priv2()
+	 * @generated
+	 */
+	public EOperation getB__Priv2() {
+		return bEClass.getEOperations().get(1);
 	}
 
 
@@ -553,6 +642,33 @@ public class PgohttpestestPackage extends EPackageImpl {
 
 
 	/**
+	 * Returns the meta object for class '{@link pgohttpestest.Priv <em>Priv</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Priv</em>'.
+	 * @see pgohttpestest.Priv
+	 * @generated
+	 */
+	public EClass getPriv() {
+		return privEClass;
+	}
+
+
+	/**
+	 * Returns the meta object for the attribute '{@link pgohttpestest.Priv#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see pgohttpestest.Priv#getName()
+	 * @see #getPriv()
+	 * @generated
+	 */
+	public EAttribute getPriv_Name() {
+		return (EAttribute)privEClass.getEStructuralFeatures().get(0);
+	}
+
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -592,13 +708,18 @@ public class PgohttpestestPackage extends EPackageImpl {
 
 		bEClass = createEClass(B);
 		createEReference(bEClass, B__CS);
+		createEAttribute(bEClass, B__PRIV1);
 		createEOperation(bEClass, B___LAST_C);
+		createEOperation(bEClass, B___PRIV2);
 
 		cEClass = createEClass(C);
 		createEAttribute(cEClass, C__NAME);
 		createEOperation(cEClass, C___ROT_NAME__INT_BOOLEAN);
 
 		dEClass = createEClass(D);
+
+		privEClass = createEClass(PRIV);
+		createEAttribute(privEClass, PRIV__NAME);
 	}
 
 	/**
@@ -643,8 +764,11 @@ public class PgohttpestestPackage extends EPackageImpl {
 		initEClass(bEClass, pgohttpestest.B.class, "B", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getB_Cs(), this.getC(), null, "cs", null, 0, -1, pgohttpestest.B.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getB_Cs().getEKeys().add(this.getC_Name());
+		initEAttribute(getB_Priv1(), ecorePackage.getEInt(), "priv1", null, 0, 1, pgohttpestest.B.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getB__LastC(), this.getC(), "lastC", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEOperation(getB__Priv2(), this.getPriv(), "priv2", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(cEClass, pgohttpestest.C.class, "C", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getC_Name(), ecorePackage.getEString(), "name", null, 0, 1, pgohttpestest.C.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -655,8 +779,37 @@ public class PgohttpestestPackage extends EPackageImpl {
 
 		initEClass(dEClass, pgohttpestest.D.class, "D", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(privEClass, Priv.class, "Priv", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPriv_Name(), ecorePackage.getEString(), "name", null, 0, 1, Priv.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// no.hal.pgo.http.util.RequestSupport
+		createNoAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>no.hal.pgo.http.util.RequestSupport</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createNoAnnotations() {
+		String source = "no.hal.pgo.http.util.RequestSupport";	
+		addAnnotation
+		  (getB_Priv1(), 
+		   source, 
+		   new String[] {
+			 "exclude", "true"
+		   });	
+		addAnnotation
+		  (privEClass, 
+		   source, 
+		   new String[] {
+			 "exclude", "true"
+		   });
 	}
 
 	/**
@@ -744,12 +897,28 @@ public class PgohttpestestPackage extends EPackageImpl {
 		public static final EReference B__CS = eINSTANCE.getB_Cs();
 
 		/**
+		 * The meta object literal for the '<em><b>Priv1</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute B__PRIV1 = eINSTANCE.getB_Priv1();
+
+		/**
 		 * The meta object literal for the '<em><b>Last C</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		public static final EOperation B___LAST_C = eINSTANCE.getB__LastC();
+
+		/**
+		 * The meta object literal for the '<em><b>Priv2</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EOperation B___PRIV2 = eINSTANCE.getB__Priv2();
 
 		/**
 		 * The meta object literal for the '{@link pgohttpestest.C <em>C</em>}' class.
@@ -786,6 +955,24 @@ public class PgohttpestestPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EClass D = eINSTANCE.getD();
+
+		/**
+		 * The meta object literal for the '{@link pgohttpestest.Priv <em>Priv</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see pgohttpestest.Priv
+		 * @see pgohttpestest.PgohttpestestPackage#getPriv()
+		 * @generated
+		 */
+		public static final EClass PRIV = eINSTANCE.getPriv();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute PRIV__NAME = eINSTANCE.getPriv_Name();
 
 	}
 

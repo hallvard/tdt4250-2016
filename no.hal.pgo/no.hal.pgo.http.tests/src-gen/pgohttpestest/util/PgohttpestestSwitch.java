@@ -97,6 +97,12 @@ public class PgohttpestestSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case PgohttpestestPackage.PRIV: {
+				Priv priv = (Priv)theEObject;
+				T result = casePriv(priv);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -173,6 +179,21 @@ public class PgohttpestestSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseD(D object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Priv</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Priv</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePriv(Priv object) {
 		return null;
 	}
 

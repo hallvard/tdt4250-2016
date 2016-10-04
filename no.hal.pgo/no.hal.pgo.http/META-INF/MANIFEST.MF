@@ -26,5 +26,6 @@ Import-Package: javax.servlet;version="3.1.0",
 Service-Component: OSGI-INF/no.hal.pgo.http.ResourceEndPointProvider.xml,
  OSGI-INF/no.hal.pgo.http.util.DefaultRequestPathResolver.xml,
  OSGI-INF/no.hal.pgo.http.util.DefaultRequestQueryExecutor.xml,
- OSGI-INF/no.hal.pgo.http.util.JsonSerializer.xml
+ OSGI-INF/no.hal.pgo.http.util.JsonSerializer.xml,
+ OSGI-INF/no.hal.pgo.http.util.NameReferenceResolver.xml
 Bundle-ActivationPolicy: lazy

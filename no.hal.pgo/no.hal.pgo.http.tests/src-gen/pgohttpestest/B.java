@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link pgohttpestest.B#getCs <em>Cs</em>}</li>
+ *   <li>{@link pgohttpestest.B#getPriv1 <em>Priv1</em>}</li>
  * </ul>
  *
  * @see pgohttpestest.PgohttpestestPackage#getB()
@@ -40,6 +41,26 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 	 * @ordered
 	 */
 	protected EList<C> cs;
+
+	/**
+	 * The default value of the '{@link #getPriv1() <em>Priv1</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPriv1()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int PRIV1_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getPriv1() <em>Priv1</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPriv1()
+	 * @generated
+	 * @ordered
+	 */
+	protected int priv1 = PRIV1_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,6 +103,36 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
+	 * Returns the value of the '<em><b>Priv1</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Priv1</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Priv1</em>' attribute.
+	 * @see #setPriv1(int)
+	 * @see pgohttpestest.PgohttpestestPackage#getB_Priv1()
+	 * @model annotation="no.hal.pgo.http.util.RequestSupport exclude='true'"
+	 * @generated
+	 */
+	public int getPriv1() {
+		return priv1;
+	}
+
+	/**
+	 * Sets the value of the '{@link pgohttpestest.B#getPriv1 <em>Priv1</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Priv1</em>' attribute.
+	 * @see #getPriv1()
+	 * @generated
+	 */
+	public void setPriv1(int newPriv1) {
+		priv1 = newPriv1;
+	}
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model
@@ -90,6 +141,18 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 	public C lastC() {
 		EList<C> cs2 = getCs();
 		return (cs2.isEmpty() ? null : cs2.get(cs2.size() - 1));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	public Priv priv2() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -116,6 +179,8 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 		switch (featureID) {
 			case PgohttpestestPackage.B__CS:
 				return getCs();
+			case PgohttpestestPackage.B__PRIV1:
+				return getPriv1();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -133,6 +198,9 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 				getCs().clear();
 				getCs().addAll((Collection<? extends C>)newValue);
 				return;
+			case PgohttpestestPackage.B__PRIV1:
+				setPriv1((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -148,6 +216,9 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 			case PgohttpestestPackage.B__CS:
 				getCs().clear();
 				return;
+			case PgohttpestestPackage.B__PRIV1:
+				setPriv1(PRIV1_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -162,6 +233,8 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 		switch (featureID) {
 			case PgohttpestestPackage.B__CS:
 				return cs != null && !cs.isEmpty();
+			case PgohttpestestPackage.B__PRIV1:
+				return priv1 != PRIV1_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -176,8 +249,26 @@ public class B extends MinimalEObjectImpl.Container implements EObject {
 		switch (operationID) {
 			case PgohttpestestPackage.B___LAST_C:
 				return lastC();
+			case PgohttpestestPackage.B___PRIV2:
+				return priv2();
 		}
 		return super.eInvoke(operationID, arguments);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (priv1: ");
+		result.append(priv1);
+		result.append(')');
+		return result.toString();
 	}
 
 } // B

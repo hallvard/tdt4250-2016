@@ -13,8 +13,10 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -24,8 +26,8 @@ public class RequestSupport {
 
 	private EList<? extends Object> objects;
 
-	public RequestSupport(EList<? extends Object> objects) {
-		this.objects = objects;
+	public RequestSupport(Collection<?> objects) {
+		this.objects = new BasicEList<Object>(objects);
 	}
 
 	public EList<? extends Object> getObjects() {
@@ -126,10 +128,31 @@ public class RequestSupport {
 		return null;
 	}
 
-	protected EStructuralFeature findEStructuralFeature(EObject target, String featureName) {
-		return target.eClass().getEStructuralFeature(featureName);
+	public static final String REQUEST_SUPPORT_ANNOTATION_SOURCE = RequestSupport.class.getName();
+
+	protected <T extends ETypedElement> boolean includeElement(T element) {
+		// if explicit exclude of element, return null
+		if (AnnotationUtil.excludeElement(element, REQUEST_SUPPORT_ANNOTATION_SOURCE)) {
+			return false;
+		}
+		// if explicit exclude of type, return null
+		EClassifier type = element.getEType();
+		if (AnnotationUtil.excludeElement(type, REQUEST_SUPPORT_ANNOTATION_SOURCE)) {
+			return false;
+		}
+		// if explicit exclude of package, and not explicit include of type, return null 
+		EPackage ePackage = type.getEPackage();
+		if (AnnotationUtil.excludeElement(ePackage, REQUEST_SUPPORT_ANNOTATION_SOURCE) && (! AnnotationUtil.includeElement(type, REQUEST_SUPPORT_ANNOTATION_SOURCE))) {
+			return false;
+		}
+		return true;
 	}
 
+	protected EStructuralFeature findEStructuralFeature(EObject target, String featureName) {
+		EStructuralFeature feature = target.eClass().getEStructuralFeature(featureName);
+		return (feature != null && includeElement(feature) ? feature : null);
+	}
+	
 	protected Object getFeatureValue(EObject target, EStructuralFeature feature) {
 		return target.eGet(feature);
 	}
@@ -142,7 +165,9 @@ public class RequestSupport {
 						continue nextOp;
 					}
 				}
-				return op;
+				if (includeElement(op)) {
+					return op;
+				}
 			}
 		}
 		return null;

@@ -2,9 +2,11 @@ package no.hal.pgo.http.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.osgi.service.component.annotations.Component;
 
 import no.hal.pgo.http.IReferenceResolver;
 
+@Component
 public class NameReferenceResolver implements IReferenceResolver {
 
 	@Override

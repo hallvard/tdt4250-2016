@@ -1,7 +1,11 @@
 package no.hal.pgo.http.util;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import no.hal.pgo.http.IResourceProvider;
 
@@ -14,6 +18,7 @@ public class ResourceProvider extends RequestHelper implements IResourceProvider
 	}
 
 	private String name;
+	private EClass rootObjectClass;
 	
 	@Override
 	public String getName() {
@@ -25,6 +30,10 @@ public class ResourceProvider extends RequestHelper implements IResourceProvider
 		}
 		return null;
 	}
+	
+	public void setRootObjectClass(EClass rootObjectClass) {
+		this.rootObjectClass = rootObjectClass;
+	}
 
 	public static String defaultName(URI uri) {
 		return uri.trimFileExtension().lastSegment().replace('.', '/');
@@ -35,6 +44,14 @@ public class ResourceProvider extends RequestHelper implements IResourceProvider
 	}
 	
 	@Override
+	public Collection<? extends Object> getRootObjects() {
+		Collection<? extends Object> objects = getResource().getContents();
+		if (rootObjectClass != null) {
+			objects = EcoreUtil.getObjectsByType(objects, rootObjectClass);
+		}
+		return objects;
+	}
+	
 	public Resource getResource() {
 		return this.resource;
 	}
