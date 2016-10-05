@@ -62,11 +62,13 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 				}
 			}
 		}
-		if (occurStack.size() > 0 && eObject.eResource() != null) {
+		if (occurStack.size() > 0) {
 			for (int i = occurStack.size() - 1; i >= 0; i--) {
 				String ref = null;
 				try {
-					ref = "???";
+					if (eObject == occurStack.get(i)) {
+						ref = "???";
+					}
 				} catch (Exception e) {
 				}
 				if (ref != null) {
@@ -74,18 +76,16 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 					return;
 				}
 			}
-			generator.writeString("???");
-			return;
 		}
 		occurStack.push(eObject);
 		generator.writeStartObject();
 		try {
 			for (EStructuralFeature feature : eObject.eClass().getEAllStructuralFeatures()) {
-				boolean isContainment = true;
+				boolean include = true;
 				if (feature instanceof EReference) {
-					isContainment = ((EReference) feature).isContainment();
+					include = AnnotationUtil.includeTypedElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE);
 				}
-				if (isContainment ? (! AnnotationUtil.excludeElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE)) : AnnotationUtil.includeElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE)) {
+				if (include) {
 					String name = getFieldName(feature);
 					generator.writeFieldName(name);
 					Object value = eObject.eGet(feature);
@@ -93,6 +93,7 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 				}
 			}
 		} catch (RuntimeException e) {
+			System.err.println(e);
 		} finally {
 			generator.writeEndObject();
 			occurStack.pop();
