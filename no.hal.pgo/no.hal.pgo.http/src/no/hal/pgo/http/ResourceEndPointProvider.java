@@ -12,6 +12,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
+import no.hal.pgo.http.auth.AuthenticationHandler;
 import no.hal.pgo.http.util.RequestHelper;
 
 @Component(immediate=true)
@@ -91,12 +92,23 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 	protected void unsetHttpService(HttpService httpService) {
 		this.httpService = null;	
 	}
+	
+	private AuthenticationHandler<?> authenticationHandler;
+	
+	@Reference(cardinality=ReferenceCardinality.OPTIONAL)
+	protected void setAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+		this.authenticationHandler = authenticationHandler;
+	}
+	protected void unsetAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+		this.authenticationHandler = null;
+	}
 
 	protected void registerResourceProvider(IResourceProvider resourceProvider) {
 		String alias = resourceProvider.getName();
 		try {
 			ResourceServlet servlet = new ResourceServlet(resourceProvider);
 			servlet.setRequestHelper(this);
+			servlet.setAuthenticationHandler(authenticationHandler);
 			httpService.registerServlet("/" + alias, servlet, null, null);
 		} catch (ServletException e) {
 		} catch (NamespaceException e) {

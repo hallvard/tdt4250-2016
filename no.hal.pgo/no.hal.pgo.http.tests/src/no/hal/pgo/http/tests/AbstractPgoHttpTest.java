@@ -31,7 +31,6 @@ public class AbstractPgoHttpTest {
 	}
 	
 	protected void testN(Collection<?> expected, Object actual) {
-		// /as/1
 		assertTrue(actual instanceof Collection<?>);
 		Collection<?> col = (Collection<?>) actual;
 		Assert.assertEquals(expected.size(), col.size());
@@ -39,7 +38,6 @@ public class AbstractPgoHttpTest {
 	}
 
 	protected void test1(Object expected, Object actual) {
-		// /as/1
 		if (actual instanceof Collection<?>) {
 			Collection<?> col = (Collection<?>) actual;
 			Assert.assertEquals(1, col.size());

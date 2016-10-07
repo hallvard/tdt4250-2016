@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import no.hal.pgo.http.auth.AuthenticationHandler;
+import no.hal.pgo.http.auth.UnauthorizedException;
 import no.hal.pgo.http.util.RequestHelper;
 
 @SuppressWarnings("serial")
@@ -30,6 +36,12 @@ public class ResourceServlet extends HttpServlet {
 		this.requestHelper = requestHelper;
 	}
 
+	protected AuthenticationHandler<?> authenticationHandler;
+	
+	public void setAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+		this.authenticationHandler = authenticationHandler;
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
@@ -38,6 +50,10 @@ public class ResourceServlet extends HttpServlet {
 		String op = getResourcePathAndOp(path, resourcePath);
 		try {
 			Collection<?> objects = resourceProvider.getRootObjects();
+			if (authenticationHandler != null) {
+				EObject context = (EObject) EcoreUtil.getObjectByType(objects, EcorePackage.eINSTANCE.getEObject());
+				authenticationHandler.acceptRequest(req, context);
+			}
 			String[] segments = resourcePath.toArray(new String[resourcePath.size()]);
 			IRequestPathResolver requestPathResolver = RequestHelper.get(resourceProvider.getRequestPathResolver(), requestHelper.getRequestPathResolver());
 			Object object = requestPathResolver.getObjectForPath(objects, segments);
@@ -50,6 +66,10 @@ public class ResourceServlet extends HttpServlet {
 			}
 			IResponseSerializer responseSerializer = RequestHelper.get(resourceProvider.getResponseSerializer(), requestHelper.getResponseSerializer());
 			responseSerializer.serialize(result, resp.getWriter());
+		} catch (UnauthorizedException ue) {
+			if (authenticationHandler != null) {
+				authenticationHandler.forceAuthentication(resp, ue.getMessage(), resourceProvider.getName());
+			}
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}

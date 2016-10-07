@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.util.EObjectEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import no.hal.pgo.http.IReferenceResolver;
+import no.hal.pgo.http.auth.ISubjectProvider;
+import no.hal.pgo.http.auth.UnauthorizedException;
 
 public class RequestSupport {
 
@@ -41,6 +43,14 @@ public class RequestSupport {
 	public void setReferenceResolver(IReferenceResolver referenceResolver) {
 		this.referenceResolver = referenceResolver;
 	}
+
+	private ISubjectProvider<?> subjectProvider;
+
+	public void setSubjectProvider(ISubjectProvider<?> subjectProvider) {
+		this.subjectProvider = subjectProvider;
+	}
+
+	//
 
 	public Object nextStep(String step, Map<String, ?> parameters) {
 		Integer num = null;
@@ -140,10 +150,12 @@ public class RequestSupport {
 	protected EOperation findEOperation(EObject target, String opName, Map<String, ?> parameters) {
 		nextOp: for (EOperation op : target.eClass().getEAllOperations()) {
 			if (opName.equals(op.getName())) {
-				for (EParameter param : op.getEParameters()) {
-					if (parameters == null || (! parameters.containsKey(param.getName()))) {
-						continue nextOp;
+				nextParam: for (EParameter param : op.getEParameters()) {
+					if ((parameters != null && parameters.containsKey(param.getName())) ||
+						(isSubjectParameter(param) && subjectProvider != null)) {
+							continue nextParam;
 					}
+					continue nextOp;
 				}
 				if (AnnotationUtil.includeTypedElement(op, REQUEST_SUPPORT_ANNOTATION_SOURCE)) {
 					return op;
@@ -153,10 +165,23 @@ public class RequestSupport {
 		return null;
 	}
 
+	protected boolean isSubjectParameter(EParameter param) {
+		String subject = EcoreUtil.getAnnotation(param, REQUEST_SUPPORT_ANNOTATION_SOURCE, "subject");
+		return subject != null && Boolean.TRUE.equals(Boolean.valueOf(subject));
+	}
+
 	protected Object invokeOperation(EObject target, EOperation op, Map<String, ?> parameters) {
 		EList<Object> args = new BasicEList<Object>();
 		for (EParameter param : op.getEParameters()) {
-			Object paramValue = parameters.get(param.getName()), arg = null;
+			Object paramValue = null, arg = null;
+			if (isSubjectParameter(param) && subjectProvider != null) {
+				paramValue = subjectProvider.getSubject();
+				if (paramValue == null) {
+					throw new UnauthorizedException("Not authorized for " + op.getName() + " in this context", null);
+				}
+			} else {
+				paramValue = parameters.get(param.getName());
+			}
 			Throwable t = null;
 			EClassifier type = param.getEType();
 			if (type.isInstance(paramValue)) {
