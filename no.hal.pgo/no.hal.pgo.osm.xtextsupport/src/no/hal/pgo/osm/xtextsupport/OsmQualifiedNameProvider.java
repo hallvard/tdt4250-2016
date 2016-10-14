@@ -16,7 +16,7 @@ public class OsmQualifiedNameProvider extends IQualifiedNameProvider.AbstractImp
 	public QualifiedName getFullyQualifiedName(EObject eObject) {
 		if (eObject instanceof Tagged) {
 			Tagged tagged = (Tagged) eObject;
-			String prefix = oneOf(tagged, "amenity", "room_type"), name = tagged.getTag("name");
+			String prefix = oneOf(tagged, "building", "amenity", "room_type", "tourism"), name = tagged.getTag("name");
 			if (name != null) {
 				boolean isId = idPattern.matcher(name).matches();
 				if (! isId) {
@@ -37,7 +37,7 @@ public class OsmQualifiedNameProvider extends IQualifiedNameProvider.AbstractImp
 		}
 		return null;
 	}
-	
+
 	//
 	
 	public static void main(String[] args) {
