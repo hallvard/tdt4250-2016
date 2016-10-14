@@ -83,6 +83,8 @@
 		<module>no.hal.pgo.http</module>
 		<module>no.hal.pgo.http.tests</module>
 		<module>no.hal.pgo.ui</module>
+		<module>no.hal.pgo.osm.geomap</module>
+		<module>no.hal.pgo.osm.xtextsupport</module>
 
 		<module>no.hal.pgo.feature</module>
 		<module>no.hal.pgo.repository</module>
