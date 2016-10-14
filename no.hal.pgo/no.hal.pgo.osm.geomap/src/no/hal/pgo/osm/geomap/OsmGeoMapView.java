@@ -13,6 +13,7 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 
+import no.hal.pgo.osm.GeoLocation;
 import no.hal.pgo.ui.AbstractSelectionView;
 
 public class OsmGeoMapView extends AbstractSelectionView {
@@ -89,12 +90,21 @@ public class OsmGeoMapView extends AbstractSelectionView {
 	}
 	
 	protected void setLocation(int x, int y, int zoom) {
-		PointD longLat = GeoMapUtil.getLongitudeLatitude(new Point(x, y), zoom);
-		setLocation(longLat.y, longLat.x);
+		Point mapPosition = viewer.getGeoMap().getMapPosition();
+		int lx = x + mapPosition.x, ly = y + mapPosition.y;
+		PointD lonLat = GeoMapUtil.getLongitudeLatitude(new Point(lx, ly), zoom);
+		System.out.println(ly + ", " + lx + " @ " + zoom + " ~ " + lonLat.y + ", " + lonLat.x);
+		setLocation(lonLat.y, lonLat.x);
 	}
 
 	protected void setLocation(double lat, double lon) {
-		System.out.println("Set location of " + getSelection() + " to " + lat + ", " + lon);
+		if (getSelection() instanceof GeoLocation) {
+			System.out.println("Set location of " + getSelection() + " to " + lat + ", " + lon);
+			GeoLocation geoLocation = (GeoLocation) getSelection();
+			geoLocation.setLatitude((float) lat);
+			geoLocation.setLongitude((float) lon);
+			viewer.getGeoMap().redraw();
+		}
 	}
 	
 	@Override
@@ -161,6 +171,7 @@ public class OsmGeoMapView extends AbstractSelectionView {
 			if (selectionStart != null) {
 				setLocation(e.x, e.y, viewer.getGeoMap().getZoom());
 			}
+			selectionStart = null;
 		}
 	}
 }
