@@ -94,6 +94,7 @@ public class OsmGeoMapView extends AbstractSelectionView {
 	}
 
 	protected void setLocation(double lat, double lon) {
+		System.out.println("Set location of " + getSelection() + " to " + lat + ", " + lon);
 	}
 	
 	@Override

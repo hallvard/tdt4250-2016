@@ -13,7 +13,9 @@ public class OsmLocationProvider implements LocationProvider {
 	public PointD getLonLat(Object element) {
 		if (element instanceof GeoLocated) {
 			LatLong latLong = ((GeoLocated) element).getLatLong();
-			return new PointD(latLong.longitude, latLong.latitude);
+			if (latLong != null) {
+				return new PointD(latLong.longitude, latLong.latitude);
+			}
 		}
 		return null;
 	}
