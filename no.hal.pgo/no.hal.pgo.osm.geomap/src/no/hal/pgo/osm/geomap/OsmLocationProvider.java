@@ -25,7 +25,7 @@ public class OsmLocationProvider implements LocationProvider {
 		if (element instanceof GeoLocation) {
 			((GeoLocation) element).setLatitude((float) lat);
 			((GeoLocation) element).setLongitude((float) lon);
-			return false;
+			return true;
 		}
 		return false;
 	}

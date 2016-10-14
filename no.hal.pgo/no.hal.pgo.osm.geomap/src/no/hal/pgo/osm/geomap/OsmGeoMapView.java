@@ -13,7 +13,6 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 
-import no.hal.pgo.osm.GeoLocation;
 import no.hal.pgo.ui.AbstractSelectionView;
 
 public class OsmGeoMapView extends AbstractSelectionView {
@@ -98,12 +97,11 @@ public class OsmGeoMapView extends AbstractSelectionView {
 	}
 
 	protected void setLocation(double lat, double lon) {
-		if (getSelection() instanceof GeoLocation) {
+		if (viewer.getLocationProvider().getLonLat(getSelection()) != null) {
 			System.out.println("Set location of " + getSelection() + " to " + lat + ", " + lon);
-			GeoLocation geoLocation = (GeoLocation) getSelection();
-			geoLocation.setLatitude((float) lat);
-			geoLocation.setLongitude((float) lon);
-			viewer.getGeoMap().redraw();
+			if (viewer.getLocationProvider().setLonLat(getSelection(), lon, lat)) {
+				viewer.getGeoMap().redraw();
+			}
 		}
 	}
 	
