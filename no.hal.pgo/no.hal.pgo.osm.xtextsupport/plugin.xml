@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+ 	<!-- resource service providers for osm-->
+ 	
+	<extension
+	      point="org.eclipse.xtext.extension_resourceServiceProvider">
+	    <resourceServiceProvider
+	          class="no.hal.pgo.osm.xtextsupport.ExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceServiceProvider"
+	          uriExtension="osm">
+	    </resourceServiceProvider>
+	</extension>
+
+</plugin>
