@@ -6,17 +6,10 @@ package no.hal.pgo.osm.provider;
 import java.util.Collection;
 import java.util.List;
 
-import no.hal.pgo.osm.OsmFactory;
-import no.hal.pgo.osm.OsmPackage;
-import no.hal.pgo.osm.Tags;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -25,6 +18,11 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import no.hal.pgo.osm.OsmFactory;
+import no.hal.pgo.osm.OsmPackage;
+import no.hal.pgo.osm.Tag;
+import no.hal.pgo.osm.Tags;
 
 /**
  * This is the item provider adapter for a {@link no.hal.pgo.osm.Tags} object.
@@ -110,11 +108,41 @@ public class TagsItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Tags_type");
+		String tagsText = getTagsText((Tags) object);
+		return getString("_UI_Tags_type") + (tagsText != null ? " " + tagsText : "");
+	}
+
+	static String getTagsText(Tags tags, String... tagNames) {
+		String prefix = "{ ", suffix = " }";
+		StringBuilder buffer = null;
+		for (Tag tag : tags.getTags()) {
+			boolean include = true;
+			if (tagNames != null && tagNames.length > 0) {
+				include = false;
+				for (int i = 0; i < tagNames.length; i++) {
+					if (tagNames[i].equals(tag.getKey())) {
+						include = true;
+						break;
+					}
+				}
+			}
+			if (include) {
+				if (buffer == null) {
+					buffer = new StringBuilder(prefix);
+				}
+				if (buffer.length() > prefix.length()) {
+					buffer.append(", ");
+				}
+				buffer.append(tag.getKey());
+				buffer.append(": ");
+				buffer.append(tag.getValue());
+			}
+		}
+		return buffer != null ? buffer.append(suffix).toString() : null;
 	}
 	
 

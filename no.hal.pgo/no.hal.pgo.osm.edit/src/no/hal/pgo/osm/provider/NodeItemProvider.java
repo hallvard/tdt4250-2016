@@ -6,16 +6,15 @@ package no.hal.pgo.osm.provider;
 import java.util.Collection;
 import java.util.List;
 
-import no.hal.pgo.osm.Node;
-import no.hal.pgo.osm.OsmPackage;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import no.hal.pgo.osm.Node;
+import no.hal.pgo.osm.OsmPackage;
 
 /**
  * This is the item provider adapter for a {@link no.hal.pgo.osm.Node} object.
@@ -115,9 +114,9 @@ public class NodeItemProvider extends OSMElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		Node node = (Node)object;
-		return getString("_UI_Node_type") + " " + node.getId();
+		String tagsText = getTagsText(node);
+		return getString("_UI_Node_type") + " " + node.getId() + (tagsText != null ? " " + tagsText : "");
 	}
-	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

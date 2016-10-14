@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.views">
+     <view id="no.hal.pgo.osm.geomap.OsmGeoMapView"
+         name="Geo-location view"
+         class="no.hal.pgo.osm.geomap.OsmGeoMapView"
+		 category="no.hal.pgo.ui.category"
+         >
+         </view>
+   </extension>
+
+</plugin>
