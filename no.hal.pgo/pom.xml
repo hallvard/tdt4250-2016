@@ -27,6 +27,15 @@
 			</releases>
 		</repository>
 		<repository>
+			<id>nebula</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/nebula/snapshot/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
+		</repository>
+		<repository>
 			<id>emfjson</id>
 			<layout>p2</layout>
 			<url>http://ghillairet.github.com/p2</url>

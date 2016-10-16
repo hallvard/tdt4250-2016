@@ -10,16 +10,4 @@
 		<relativePath>..</relativePath>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
-	<repositories>
-		<repository>
-			<id>nebula</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/nebula/snapshot/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-			</releases>
-		</repository>
-	</repositories>
 </project>
