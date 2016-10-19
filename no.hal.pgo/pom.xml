@@ -95,6 +95,7 @@
 		<module>no.hal.pgo.osm.geomap</module>
 		<module>no.hal.pgo.osm.xtextsupport</module>
 
+		<module>no.hal.pgo.runtimefeature</module>
 		<module>no.hal.pgo.feature</module>
 		<module>no.hal.pgo.repository</module>
 	</modules>

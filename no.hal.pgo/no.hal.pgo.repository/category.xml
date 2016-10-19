@@ -3,5 +3,8 @@
    <feature url="features/no.hal.pgo.feature_0.0.1.qualifier.jar" id="no.hal.pgo.feature" version="0.0.1.qualifier">
       <category name="no.hal.pgo.category"/>
    </feature>
+   <feature url="features/no.hal.pgo.runtimefeature_0.0.1.qualifier.jar" id="no.hal.pgo.runtimefeature" version="0.0.1.qualifier">
+      <category name="no.hal.pgo.category"/>
+   </feature>
    <category-def name="no.hal.pgo.category" label="Pgo"/>
 </site>

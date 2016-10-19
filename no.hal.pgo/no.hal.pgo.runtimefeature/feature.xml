@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="no.hal.pgo.feature"
-      label="Pgo Feature"
+      id="no.hal.pgo.runtimefeature"
+      label="Pgo Runtime Feature"
       version="0.0.1.qualifier">
 
    <description url="http://www.example.com/description">
@@ -16,33 +16,22 @@
       [Enter License Description here.]
    </license>
 
-   <includes
-         id="no.hal.pgo.runtimefeature"
-         version="0.0.0"/>
-
    <plugin
-         id="no.hal.pgo.osm.edit"
+         id="no.hal.pgo.http"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="no.hal.pgo.osm.editor"
+         id="no.hal.pgo.osm"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="no.hal.pgo.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="no.hal.pgo.osm.geomap"
+         id="no.hal.pgo.osm.xtextsupport"
          download-size="0"
          install-size="0"
          version="0.0.0"

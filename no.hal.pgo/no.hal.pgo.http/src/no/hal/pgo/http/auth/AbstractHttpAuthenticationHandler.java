@@ -14,9 +14,6 @@ public abstract class AbstractHttpAuthenticationHandler<P> implements Authentica
 	private EObject context;
 	private String authHeader;
 
-	public AbstractHttpAuthenticationHandler() {
-	}
-	
 	@Override
 	public P getSubject() {
 		P subject = null;

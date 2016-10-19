@@ -1,7 +1,9 @@
 package no.hal.pgo.osm.xtextsupport;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -9,7 +11,7 @@ import com.google.inject.Injector;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator {
 
 	public static final String PLUGIN_ID = "no.hal.pgo.osm.xtextsupport"; //$NON-NLS-1$
 
@@ -27,13 +29,16 @@ public class Activator extends AbstractUIPlugin {
 	
 	private Injector injector;
 	
+	public Bundle getBundle() {
+		return FrameworkUtil.getBundle(this.getClass());
+	}
+	
 	public Injector getInjector() {
 		return injector;
 	}
 
 	@Override
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
 		plugin = this;
 		injector = Guice.createInjector(new OsmRuntimeModule());
 	}
@@ -42,6 +47,5 @@ public class Activator extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		injector = null;
-		super.stop(context);
 	}
 }

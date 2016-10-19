@@ -95,11 +95,11 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 	
 	private AuthenticationHandler<?> authenticationHandler;
 	
-	@Reference(cardinality=ReferenceCardinality.OPTIONAL)
-	protected void setAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+	@Reference(cardinality=ReferenceCardinality.MANDATORY, policy=ReferencePolicy.DYNAMIC)
+	public void setAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
 		this.authenticationHandler = authenticationHandler;
 	}
-	protected void unsetAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+	public void unsetAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
 		this.authenticationHandler = null;
 	}
 

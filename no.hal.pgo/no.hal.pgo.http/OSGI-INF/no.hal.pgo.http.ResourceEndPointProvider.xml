@@ -3,7 +3,7 @@
    <service>
       <provide interface="no.hal.pgo.http.IResourceEndPointProvider"/>
    </service>
-   <reference bind="setAuthenticationHandler" cardinality="0..1" interface="no.hal.pgo.http.auth.AuthenticationHandler" name="AuthenticationHandler" policy="static" unbind="unsetAuthenticationHandler"/>
+   <reference bind="setAuthenticationHandler" cardinality="1..1" interface="no.hal.pgo.http.auth.AuthenticationHandler" name="AuthenticationHandler" policy="dynamic" unbind="unsetAuthenticationHandler"/>
    <reference bind="setHttpService" cardinality="1..1" interface="org.osgi.service.http.HttpService" name="HttpService" unbind="unsetHttpService"/>
    <reference bind="setRequestPathResolver" cardinality="1..1" interface="no.hal.pgo.http.IRequestPathResolver" name="RequestPathResolver" policy="dynamic" unbind="unsetRequestPathResolver"/>
    <reference bind="setRequestQueryExecutor" cardinality="1..1" interface="no.hal.pgo.http.IRequestQueryExecutor" name="RequestQueryExecutor" policy="dynamic" unbind="unsetRequestQueryExecutor"/>
