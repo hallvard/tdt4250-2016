@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.log.LogService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,6 +53,17 @@ public class ResourceServlet extends HttpServlet {
 		this.authenticationHandler = authenticationHandler;
 	}
 
+	protected LogService logger;
+	
+	protected LogService getLogger() {
+		if (this.logger == null) {
+			BundleContext bundleContext = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
+			ServiceReference<LogService> serviceReference = bundleContext.getServiceReference(LogService.class);
+			this.logger = bundleContext.getService(serviceReference);
+		}
+		return this.logger;
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Map<String, Object> params = decodeQuery(req, new HashMap<String, Object>());
@@ -66,6 +81,10 @@ public class ResourceServlet extends HttpServlet {
 		String path = req.getPathInfo();
 		Collection<String> resourcePath = new ArrayList<String>();
 		String op = getResourcePathAndOp(path, resourcePath);
+		LogService logger = getLogger();
+		if (logger != null) {
+			logger.log(LogService.LOG_INFO, "Handling " + path + " as " + resourcePath + " + " + op);
+		}
 		try {
 			Collection<?> objects = resourceProvider.getRootObjects();
 			if (authenticationHandler != null) {
@@ -84,10 +103,18 @@ public class ResourceServlet extends HttpServlet {
 			IResponseSerializer responseSerializer = RequestHelper.get(resourceProvider.getResponseSerializer(), requestHelper.getResponseSerializer());
 			responseSerializer.serialize(result, resp.getWriter());
 		} catch (UnauthorizedException ue) {
+			if (logger != null) {
+				String message = "Unauthorized, " + (authenticationHandler != null ? "forcing authentication" : "but no authentication handler") + ": " + ue.getMessage();
+				logger.log(LogService.LOG_INFO, message);
+			}
 			if (authenticationHandler != null) {
 				authenticationHandler.forceAuthentication(resp, ue.getMessage(), resourceProvider.getName());
 			}
 		} catch (Exception e) {
+			if (logger != null) {
+				String message = "Exception during request handling: " + e.getMessage();
+				logger.log(LogService.LOG_WARNING, message);
+			}
 			throw new ServletException(e);
 		}
 	}
