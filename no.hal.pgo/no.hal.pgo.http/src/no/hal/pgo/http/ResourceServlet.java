@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 
 import no.hal.pgo.http.auth.AuthenticationHandler;
+import no.hal.pgo.http.auth.AuthenticationHandlerProvider;
 import no.hal.pgo.http.auth.UnauthorizedException;
 import no.hal.pgo.http.util.RequestHelper;
 
@@ -47,10 +48,10 @@ public class ResourceServlet extends HttpServlet {
 		this.requestHelper = requestHelper;
 	}
 
-	protected AuthenticationHandler<?> authenticationHandler;
+	protected AuthenticationHandlerProvider authenticationHandlerProvider;
 	
-	public void setAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
-		this.authenticationHandler = authenticationHandler;
+	public void setAuthenticationHandler(AuthenticationHandlerProvider authenticationHandlerProvider) {
+		this.authenticationHandlerProvider = authenticationHandlerProvider;
 	}
 
 	protected LogService logger;
@@ -85,26 +86,29 @@ public class ResourceServlet extends HttpServlet {
 		if (logger != null) {
 			logger.log(LogService.LOG_INFO, "Handling " + path + " as " + resourcePath + " + " + op);
 		}
+		AuthenticationHandler<?> authenticationHandler = null;
 		try {
 			Collection<?> objects = resourceProvider.getRootObjects();
-			if (authenticationHandler != null) {
-				EObject context = (EObject) EcoreUtil.getObjectByType(objects, EcorePackage.eINSTANCE.getEObject());
-				authenticationHandler.acceptRequest(req, context);
+			EObject context = (EObject) EcoreUtil.getObjectByType(objects, EcorePackage.eINSTANCE.getEObject());
+			authenticationHandler = authenticationHandlerProvider.getAuthenticationHandler(context);
+			if (authenticationHandler != null && (! authenticationHandler.acceptRequest(req, context))) {
+				authenticationHandler.forceAuthentication(resp, "Request not accepted", resourceProvider.getName());
+			} else {
+				String[] segments = resourcePath.toArray(new String[resourcePath.size()]);
+				IRequestPathResolver requestPathResolver = RequestHelper.get(resourceProvider.getRequestPathResolver(), requestHelper.getRequestPathResolver());
+				Object object = requestPathResolver.getObjectForPath(objects, segments);
+				Object result = object;
+				if (op != null) {
+					Collection<?> target = (object instanceof Collection<?> ? (Collection<?>) object : Collections.singletonList(object));
+					IRequestQueryExecutor requestQueryExecutor = RequestHelper.get(resourceProvider.getRequestQueryExecutor(), requestHelper.getRequestQueryExecutor());
+					result = requestQueryExecutor.getRequestQueryResult(target, op, params);
+				}
+				IResponseSerializer responseSerializer = RequestHelper.get(resourceProvider.getResponseSerializer(), requestHelper.getResponseSerializer());
+				responseSerializer.serialize(result, resp.getWriter());
 			}
-			String[] segments = resourcePath.toArray(new String[resourcePath.size()]);
-			IRequestPathResolver requestPathResolver = RequestHelper.get(resourceProvider.getRequestPathResolver(), requestHelper.getRequestPathResolver());
-			Object object = requestPathResolver.getObjectForPath(objects, segments);
-			Object result = object;
-			if (op != null) {
-				Collection<?> target = (object instanceof Collection<?> ? (Collection<?>) object : Collections.singletonList(object));
-				IRequestQueryExecutor requestQueryExecutor = RequestHelper.get(resourceProvider.getRequestQueryExecutor(), requestHelper.getRequestQueryExecutor());
-				result = requestQueryExecutor.getRequestQueryResult(target, op, params);
-			}
-			IResponseSerializer responseSerializer = RequestHelper.get(resourceProvider.getResponseSerializer(), requestHelper.getResponseSerializer());
-			responseSerializer.serialize(result, resp.getWriter());
 		} catch (UnauthorizedException ue) {
 			if (logger != null) {
-				String message = "Unauthorized, " + (authenticationHandler != null ? "forcing authentication" : "but no authentication handler") + ": " + ue.getMessage();
+				String message = "Unauthorized, " + (authenticationHandlerProvider != null ? "forcing authentication" : "but no authentication handler") + ": " + ue.getMessage();
 				logger.log(LogService.LOG_INFO, message);
 			}
 			if (authenticationHandler != null) {

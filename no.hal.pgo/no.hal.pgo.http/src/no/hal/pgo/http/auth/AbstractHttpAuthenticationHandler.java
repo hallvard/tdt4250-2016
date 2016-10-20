@@ -39,9 +39,13 @@ public abstract class AbstractHttpAuthenticationHandler<P> implements Authentica
 	protected abstract P getSubject(String id, String cred, EObject context);
 
 	@Override
-	public void acceptRequest(HttpServletRequest req, EObject context) {
+	public boolean acceptRequest(HttpServletRequest req, EObject context) {
+		if (! acceptsContext(context)) {
+			return false;
+		}
 		this.context = context;
 		this.authHeader = req.getHeader("Authorization");
+		return this.authHeader != null;
 	}
 
 	@Override

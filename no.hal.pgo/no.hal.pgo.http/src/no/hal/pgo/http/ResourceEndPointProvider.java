@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.servlet.ServletException;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
@@ -13,10 +14,11 @@ import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
 import no.hal.pgo.http.auth.AuthenticationHandler;
+import no.hal.pgo.http.auth.AuthenticationHandlerProvider;
 import no.hal.pgo.http.util.RequestHelper;
 
 @Component(immediate=true)
-public class ResourceEndPointProvider extends RequestHelper implements IResourceEndPointProvider {
+public class ResourceEndPointProvider extends RequestHelper implements IResourceEndPointProvider, AuthenticationHandlerProvider {
 
 	private Collection<IResourceProvider> resourceProviders = new ArrayList<IResourceProvider>();
 
@@ -93,22 +95,32 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 		this.httpService = null;	
 	}
 	
-	private AuthenticationHandler<?> authenticationHandler;
+	private Collection<AuthenticationHandler<?>> authenticationHandlers = new ArrayList<AuthenticationHandler<?>>();
 	
-	@Reference(cardinality=ReferenceCardinality.MANDATORY, policy=ReferencePolicy.DYNAMIC)
-	public void setAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
-		this.authenticationHandler = authenticationHandler;
+	@Reference(cardinality=ReferenceCardinality.AT_LEAST_ONE, policy=ReferencePolicy.DYNAMIC, unbind="removeAuthenticationHandler")
+	public void addAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+		authenticationHandlers.add(authenticationHandler);
 	}
-	public void unsetAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
-		this.authenticationHandler = null;
+	public void removeAuthenticationHandler(AuthenticationHandler<?> authenticationHandler) {
+		authenticationHandlers.remove(authenticationHandler);
 	}
 
+	@Override
+	public AuthenticationHandler<?> getAuthenticationHandler(EObject context) {
+		for (AuthenticationHandler<?> authenticationHandler : authenticationHandlers) {
+			if (authenticationHandler.acceptsContext(context)) {
+				return authenticationHandler;
+			}
+		}
+		return null;
+	}
+	
 	protected void registerResourceProvider(IResourceProvider resourceProvider) {
 		String alias = resourceProvider.getName();
 		try {
 			ResourceServlet servlet = new ResourceServlet(resourceProvider);
 			servlet.setRequestHelper(this);
-			servlet.setAuthenticationHandler(authenticationHandler);
+			servlet.setAuthenticationHandler(this);
 			httpService.registerServlet("/" + alias, servlet, null, null);
 		} catch (ServletException e) {
 		} catch (NamespaceException e) {
