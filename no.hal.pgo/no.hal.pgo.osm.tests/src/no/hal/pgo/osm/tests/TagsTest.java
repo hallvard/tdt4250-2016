@@ -15,6 +15,7 @@ import no.hal.pgo.osm.Tags;
  * <p>
  * The following operations are tested:
  * <ul>
+ *   <li>{@link no.hal.pgo.osm.Tags#getTagDefaults() <em>Get Tag Defaults</em>}</li>
  *   <li>{@link no.hal.pgo.osm.Tagged#hasTag(java.lang.String) <em>Has Tag</em>}</li>
  *   <li>{@link no.hal.pgo.osm.Tagged#getTag(java.lang.String) <em>Get Tag</em>}</li>
  *   <li>{@link no.hal.pgo.osm.Tagged#hasTag(java.lang.String, java.lang.String) <em>Has Tag</em>}</li>
@@ -94,6 +95,17 @@ public class TagsTest extends TestCase {
 	}
 
 	/**
+	 * Tests the '{@link no.hal.pgo.osm.Tags#getTagDefaults() <em>Get Tag Defaults</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see no.hal.pgo.osm.Tags#getTagDefaults()
+	 * @generated NOT
+	 */
+	public void testGetTagDefaults() {
+		// no special behavior
+	}
+
+	/**
 	 * Tests the '{@link no.hal.pgo.osm.Tagged#hasTag(java.lang.String) <em>Has Tag</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,6 +131,13 @@ public class TagsTest extends TestCase {
 		tag2.setKey("tag2");
 		assertTrue(tags.hasTag("tag1"));
 		assertTrue(tags.hasTag("tag2"));
+		
+//		Tags defaults = OsmFactory.eINSTANCE.createTags();
+//		Tag tag3 = OsmFactory.eINSTANCE.createTag();
+//		tag3.setKey("tag3");
+//		defaults.getTags().add(tag3);
+//		tags.setTagDefaults(defaults);
+//		assertTrue(tags.hasTag("tag3"));
 	}
 
 	/**
@@ -154,6 +173,14 @@ public class TagsTest extends TestCase {
 		tag2.setValue("value2");		
 		assertEquals("value1", tags.getTag("tag1"));
 		assertEquals("value2", tags.getTag("tag2"));
+		
+//		Tags defaults = OsmFactory.eINSTANCE.createTags();
+//		Tag tag3 = OsmFactory.eINSTANCE.createTag();
+//		tag3.setKey("tag3");
+//		tag3.setValue("tag3");
+//		defaults.getTags().add(tag3);
+//		tags.setTagDefaults(defaults);
+//		assertEquals("tag3", tags.getTag("tag3"));
 	}
 
 	/**
@@ -192,6 +219,15 @@ public class TagsTest extends TestCase {
 		assertTrue(tags.hasTag("tag1", "value1"));
 		assertFalse(tags.hasTag("tag2", "value0"));
 		assertTrue(tags.hasTag("tag2", "value2"));
+
+//		Tags defaults = OsmFactory.eINSTANCE.createTags();
+//		Tag tag3 = OsmFactory.eINSTANCE.createTag();
+//		tag3.setKey("tag3");
+//		defaults.getTags().add(tag3);
+//		tags.setTagDefaults(defaults);
+//		assertFalse(tags.hasTag("tag3", "tag3"));
+//		tag3.setValue("tag3");
+//		assertTrue(tags.hasTag("tag3", "tag3"));
 	}
 
 } //TagsTest

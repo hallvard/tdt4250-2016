@@ -3,5 +3,6 @@
    <service>
       <provide interface="no.hal.pgo.http.IResponseSerializer"/>
    </service>
+   <reference bind="addJsonSerializerHelper" cardinality="0..n" interface="no.hal.pgo.http.util.JsonSerializerHelper" name="JsonSerializerHelper" policy="dynamic" unbind="removeJsonSerializerHelper"/>
    <implementation class="no.hal.pgo.http.util.JsonSerializer"/>
 </scr:component>

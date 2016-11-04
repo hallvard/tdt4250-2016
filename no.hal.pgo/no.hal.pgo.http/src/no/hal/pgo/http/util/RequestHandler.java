@@ -33,12 +33,9 @@ public class RequestHandler extends CompositeReferenceResolver implements IReque
 	
 	private ISubjectProvider<?> subjectProvider;
 	
-	@Reference(cardinality=ReferenceCardinality.MANDATORY, policy=ReferencePolicy.DYNAMIC, unbind="unsetSubjectProvider")
+	@Override
 	public void setSubjectProvider(ISubjectProvider<?> subjectProvider) {
 		this.subjectProvider = subjectProvider;
-	}
-	public void unsetSubjectProvider(ISubjectProvider<?> subjectProvider) {
-		this.subjectProvider = null;
 	}
 
 	@Override

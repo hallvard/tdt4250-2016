@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -21,16 +20,11 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogService;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.ValueNode;
-
 import no.hal.pgo.http.auth.AuthenticationHandler;
 import no.hal.pgo.http.auth.AuthenticationHandlerProvider;
 import no.hal.pgo.http.auth.UnauthorizedException;
 import no.hal.pgo.http.util.RequestHelper;
+import no.hal.pgo.http.util.ServletUtil;
 
 @SuppressWarnings("serial")
 public class ResourceServlet extends HttpServlet {
@@ -67,14 +61,14 @@ public class ResourceServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<String, Object> params = decodeQuery(req, new HashMap<String, Object>());
+		Map<String, Object> params = ServletUtil.decodeQuery(req, new HashMap<String, Object>());
 		doHelper(req, resp, params);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<String, Object> params = decodeQuery(req, new HashMap<String, Object>());
-		decodePostBody(req, params);
+		Map<String, Object> params = ServletUtil.decodeQuery(req, new HashMap<String, Object>());
+		ServletUtil.decodePostBody(req, params);
 		doHelper(req, resp, params);
 	}
 	
@@ -96,11 +90,13 @@ public class ResourceServlet extends HttpServlet {
 			} else {
 				String[] segments = resourcePath.toArray(new String[resourcePath.size()]);
 				IRequestPathResolver requestPathResolver = RequestHelper.get(resourceProvider.getRequestPathResolver(), requestHelper.getRequestPathResolver());
+				requestPathResolver.setSubjectProvider(authenticationHandler);
 				Object object = requestPathResolver.getObjectForPath(objects, segments);
 				Object result = object;
 				if (op != null) {
 					Collection<?> target = (object instanceof Collection<?> ? (Collection<?>) object : Collections.singletonList(object));
 					IRequestQueryExecutor requestQueryExecutor = RequestHelper.get(resourceProvider.getRequestQueryExecutor(), requestHelper.getRequestQueryExecutor());
+					requestPathResolver.setSubjectProvider(authenticationHandler);
 					result = requestQueryExecutor.getRequestQueryResult(target, op, params);
 				}
 				IResponseSerializer responseSerializer = RequestHelper.get(resourceProvider.getResponseSerializer(), requestHelper.getResponseSerializer());
@@ -139,43 +135,5 @@ public class ResourceServlet extends HttpServlet {
 			}
 		}
 		return op;
-	}
-
-	protected Map<String, Object> decodeQuery(HttpServletRequest req, Map<String, Object> params) {
-		String query = req.getQueryString();
-		if (query != null) {
-			for (String param : query.split("&")) {
-				int pos = param.indexOf('=');
-				if (pos > 0) {
-					params.put(param.substring(0, pos), param.substring(pos + 1));
-				} else {
-					params.put(param, true);				
-				}
-			}
-		}
-		return params;
-	}
-	
-	protected Map<String, Object> decodePostBody(HttpServletRequest req, Map<String, Object> params) {
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode jsonTree = null;
-		try {
-			jsonTree = mapper.readTree(req.getReader());
-		} catch (JsonProcessingException e) {
-		} catch (IOException e) {
-		}
-		if (jsonTree instanceof ObjectNode) {
-			ObjectNode objectNode = (ObjectNode) jsonTree;
-			Iterator<String> fieldNames = objectNode.fieldNames();
-			while (fieldNames.hasNext()) {
-				String fieldName = fieldNames.next();
-				Object valueNode = objectNode.get(fieldName);
-				if (valueNode instanceof ValueNode) {
-					valueNode = ((ValueNode) valueNode).asText();
-				}
-				params.put(fieldName, valueNode);
-			}
-		}
-		return params;
 	}
 }

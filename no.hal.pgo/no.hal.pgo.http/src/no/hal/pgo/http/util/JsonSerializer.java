@@ -2,6 +2,8 @@ package no.hal.pgo.http.util;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Stack;
 
 import org.eclipse.emf.ecore.EObject;
@@ -9,6 +11,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -35,6 +40,22 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 		objectMapper.registerModule(module);
 	}
 
+	private Collection<JsonSerializerHelper> jsonSerializerHelpers = null;
+	
+	@Reference(cardinality=ReferenceCardinality.MULTIPLE, policy=ReferencePolicy.DYNAMIC, unbind="removeJsonSerializerHelper")
+	public void addJsonSerializerHelper(JsonSerializerHelper helper) {
+		if (jsonSerializerHelpers == null) {
+			jsonSerializerHelpers = new ArrayList<JsonSerializerHelper>();
+		}
+		jsonSerializerHelpers.add(helper);
+	}
+
+	public void removeJsonSerializerHelper(JsonSerializerHelper helper) {
+		if (jsonSerializerHelpers != null) {
+			jsonSerializerHelpers.remove(helper);
+		}
+	}
+	
 	private Stack<EObject> occurStack;
 
 	@Override
@@ -48,54 +69,67 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 		}
 	}
 
+	protected JsonSerializerHelper getJsonSerializerHelper(EObject eObject) {
+		for (JsonSerializerHelper helper : jsonSerializerHelpers) {
+			if (helper.accept(eObject)) {
+				return helper;
+			}
+		}
+		return null;
+	}
+	
 	public static final String JSON_SERIALIZER_ANNOTATION_SOURCE = JsonSerializer.class.getName();
 
 	@Override
 	public void serialize(EObject eObject, JsonGenerator generator, SerializerProvider serializerProvider) throws IOException, JsonGenerationException {
-		int count = 0;
+//		int count = 0;
+//		for (int i = occurStack.size() - 1; i >= 0; i--) {
+//			if (occurStack.get(i) == eObject) {
+//				count++;
+//				if (count >= 2) {
+//					generator.writeString("...");
+//					return;
+//				}
+//			}
+//		}
 		for (int i = occurStack.size() - 1; i >= 0; i--) {
 			if (occurStack.get(i) == eObject) {
-				count++;
-				if (count >= 2) {
-					generator.writeString("...");
-					return;
-				}
-			}
-		}
-		if (occurStack.size() > 0) {
-			for (int i = occurStack.size() - 1; i >= 0; i--) {
-				String ref = null;
-				try {
-					if (eObject == occurStack.get(i)) {
-						ref = "???";
-					}
-				} catch (Exception e) {
-				}
-				if (ref != null) {
-					generator.writeString(ref);
-					return;
-				}
+				generator.writeString("???");
+				return;
 			}
 		}
 		occurStack.push(eObject);
-		generator.writeStartObject();
 		try {
-			for (EStructuralFeature feature : eObject.eClass().getEAllStructuralFeatures()) {
-				boolean include = true;
-				if (feature instanceof EReference) {
-					include = AnnotationUtil.includeTypedElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE);
-				}
-				if (include) {
-					String name = getFieldName(feature);
-					generator.writeFieldName(name);
-					Object value = eObject.eGet(feature);
-					generator.writeObject(value);
+			JsonSerializerHelper helper = getJsonSerializerHelper(eObject);
+			if (helper != null) {
+				helper.serialize(eObject, generator);
+			} else {
+				try {
+					generator.writeStartObject();
+					for (EStructuralFeature feature : eObject.eClass().getEAllStructuralFeatures()) {
+						boolean include = true;
+						if (feature instanceof EReference) {
+							if (((EReference) feature).isContainer()) {
+								include = false;
+							} else {
+								include = AnnotationUtil.includeTypedElement(feature, JSON_SERIALIZER_ANNOTATION_SOURCE);
+							}
+						}
+						if (include) {
+							String name = getFieldName(feature);
+							Object value = eObject.eGet(feature);
+							if (value != null) {
+								generator.writeFieldName(name);
+								generator.writeObject(value);
+							}
+						}
+					}
+				} finally {
+					generator.writeEndObject();
 				}
 			}
-		} catch (RuntimeException e) {
-			System.err.println(e);
 		} finally {
-			generator.writeEndObject();
+//			System.err.println("Exception while serializing " + eObject + ":" + e);
 			occurStack.pop();
 		}
 	}

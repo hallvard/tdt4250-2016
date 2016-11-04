@@ -121,7 +121,7 @@ public class ResourceEndPointProvider extends RequestHelper implements IResource
 			ResourceServlet servlet = new ResourceServlet(resourceProvider);
 			servlet.setRequestHelper(this);
 			servlet.setAuthenticationHandler(this);
-			httpService.registerServlet("/" + alias, servlet, null, null);
+			httpService.registerServlet(alias.startsWith("/") ? alias : "/" + alias, servlet, null, null);
 		} catch (ServletException e) {
 		} catch (NamespaceException e) {
 		}

@@ -430,6 +430,15 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getTags__GetTagDefaults() {
+		return tagsEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTag() {
 		return tagEClass;
 	}
@@ -745,6 +754,7 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 
 		tagsEClass = createEClass(TAGS);
 		createEReference(tagsEClass, TAGS__TAGS);
+		createEOperation(tagsEClass, TAGS___GET_TAG_DEFAULTS);
 
 		tagEClass = createEClass(TAG);
 		createEAttribute(tagEClass, TAG__KEY);
@@ -862,6 +872,8 @@ public class OsmPackageImpl extends EPackageImpl implements OsmPackage {
 
 		initEClass(tagsEClass, Tags.class, "Tags", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTags_Tags(), this.getTag(), null, "tags", null, 0, -1, Tags.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEOperation(getTags__GetTagDefaults(), this.getTagged(), "getTagDefaults", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(tagEClass, Tag.class, "Tag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTag_Key(), ecorePackage.getEString(), "key", null, 0, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

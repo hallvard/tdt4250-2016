@@ -169,13 +169,22 @@ public interface OsmPackage extends EPackage {
 	int TAGS___HAS_TAG__STRING_STRING = TAGGED___HAS_TAG__STRING_STRING;
 
 	/**
+	 * The operation id for the '<em>Get Tag Defaults</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAGS___GET_TAG_DEFAULTS = TAGGED_OPERATION_COUNT + 0;
+
+	/**
 	 * The number of operations of the '<em>Tags</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TAGS_OPERATION_COUNT = TAGGED_OPERATION_COUNT + 0;
+	int TAGS_OPERATION_COUNT = TAGGED_OPERATION_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link no.hal.pgo.osm.impl.OSMElementImpl <em>OSM Element</em>}' class.
@@ -294,6 +303,15 @@ public interface OsmPackage extends EPackage {
 	 * @ordered
 	 */
 	int OSM_ELEMENT___HAS_TAG__STRING_STRING = TAGS___HAS_TAG__STRING_STRING;
+
+	/**
+	 * The operation id for the '<em>Get Tag Defaults</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OSM_ELEMENT___GET_TAG_DEFAULTS = TAGS___GET_TAG_DEFAULTS;
 
 	/**
 	 * The number of operations of the '<em>OSM Element</em>' class.
@@ -439,6 +457,15 @@ public interface OsmPackage extends EPackage {
 	 * @ordered
 	 */
 	int NODE___HAS_TAG__STRING_STRING = OSM_ELEMENT___HAS_TAG__STRING_STRING;
+
+	/**
+	 * The operation id for the '<em>Get Tag Defaults</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE___GET_TAG_DEFAULTS = OSM_ELEMENT___GET_TAG_DEFAULTS;
 
 	/**
 	 * The operation id for the '<em>Get Lat Long</em>' operation.
@@ -678,6 +705,15 @@ public interface OsmPackage extends EPackage {
 	int WAY___HAS_TAG__STRING_STRING = OSM_ELEMENT___HAS_TAG__STRING_STRING;
 
 	/**
+	 * The operation id for the '<em>Get Tag Defaults</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WAY___GET_TAG_DEFAULTS = OSM_ELEMENT___GET_TAG_DEFAULTS;
+
+	/**
 	 * The number of operations of the '<em>Way</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -904,6 +940,15 @@ public interface OsmPackage extends EPackage {
 	 * @ordered
 	 */
 	int RELATION___HAS_TAG__STRING_STRING = OSM_ELEMENT___HAS_TAG__STRING_STRING;
+
+	/**
+	 * The operation id for the '<em>Get Tag Defaults</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION___GET_TAG_DEFAULTS = OSM_ELEMENT___GET_TAG_DEFAULTS;
 
 	/**
 	 * The number of operations of the '<em>Relation</em>' class.
@@ -1482,6 +1527,16 @@ public interface OsmPackage extends EPackage {
 	EReference getTags_Tags();
 
 	/**
+	 * Returns the meta object for the '{@link no.hal.pgo.osm.Tags#getTagDefaults() <em>Get Tag Defaults</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Get Tag Defaults</em>' operation.
+	 * @see no.hal.pgo.osm.Tags#getTagDefaults()
+	 * @generated
+	 */
+	EOperation getTags__GetTagDefaults();
+
+	/**
 	 * Returns the meta object for class '{@link no.hal.pgo.osm.Tag <em>Tag</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2023,6 +2078,14 @@ public interface OsmPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TAGS__TAGS = eINSTANCE.getTags_Tags();
+
+		/**
+		 * The meta object literal for the '<em><b>Get Tag Defaults</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation TAGS___GET_TAG_DEFAULTS = eINSTANCE.getTags__GetTagDefaults();
 
 		/**
 		 * The meta object literal for the '{@link no.hal.pgo.osm.impl.TagImpl <em>Tag</em>}' class.

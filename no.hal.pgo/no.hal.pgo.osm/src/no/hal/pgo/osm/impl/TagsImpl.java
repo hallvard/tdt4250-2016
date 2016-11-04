@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import no.hal.pgo.osm.OsmPackage;
 import no.hal.pgo.osm.Tag;
+import no.hal.pgo.osm.Tagged;
 import no.hal.pgo.osm.Tags;
 
 /**
@@ -68,12 +69,22 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	@Override
 	public EList<Tag> getTags() {
 		if (tags == null) {
-			tags = new EObjectContainmentEList<Tag>(Tag.class, this, OsmPackage.TAGS__TAGS);
+			tags = new EObjectContainmentEList<>(Tag.class, this, OsmPackage.TAGS__TAGS);
 		}
 		return tags;
 	}
 
-	private Tag findTag(String key, String value) {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public Tagged getTagDefaults() {
+		return null;
+	}
+
+	protected Tag findTag(String key, String value) {
 		for (Tag tag : getTags()) {
 			if ((key == null || key.equals(tag.getKey())) && (value == null || value.equals(tag.getValue()))) {
 				return tag;
@@ -89,7 +100,7 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	 */
 	@Override
 	public boolean hasTag(String key) {
-		return findTag(key, null) != null;
+		return findTag(key, null) != null || (getTagDefaults() != null && getTagDefaults().hasTag(key));
 	}
 
 	/**
@@ -100,7 +111,10 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	@Override
 	public String getTag(String key) {
 		Tag tag = findTag(key, null);
-		return (tag != null ? tag.getValue() : null);
+		if (tag != null) {
+			return tag.getValue();
+		}
+		return (getTagDefaults() != null ? getTagDefaults().getTag(key) : null);
 	}
 
 	/**
@@ -110,7 +124,7 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	 */
 	@Override
 	public boolean hasTag(String key, String value) {
-		return findTag(key, value) != null;
+		return findTag(key, value) != null || (getTagDefaults() != null && getTagDefaults().hasTag(key, value));
 	}
 
 	/**
@@ -195,6 +209,8 @@ public class TagsImpl extends MinimalEObjectImpl.Container implements Tags {
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
+			case OsmPackage.TAGS___GET_TAG_DEFAULTS:
+				return getTagDefaults();
 			case OsmPackage.TAGS___HAS_TAG__STRING:
 				return hasTag((String)arguments.get(0));
 			case OsmPackage.TAGS___GET_TAG__STRING:

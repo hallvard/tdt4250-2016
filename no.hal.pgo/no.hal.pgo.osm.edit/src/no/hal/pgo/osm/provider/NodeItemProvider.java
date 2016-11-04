@@ -114,8 +114,7 @@ public class NodeItemProvider extends OSMElementItemProvider {
 	@Override
 	public String getText(Object object) {
 		Node node = (Node)object;
-		String tagsText = getTagsText(node);
-		return getString("_UI_Node_type") + " " + node.getId() + (tagsText != null ? " " + tagsText : "");
+		return getString("_UI_Node_type") + " " + node.getId();
 	}
 
 	/**

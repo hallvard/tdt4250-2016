@@ -38,4 +38,7 @@ public class OsmSupport extends AbstractGenericResourceSupport implements ISetup
 		return injector;
 	}
 
+	public static void setup() {
+		new OsmSupport().registerServices(false);
+	}
 }
