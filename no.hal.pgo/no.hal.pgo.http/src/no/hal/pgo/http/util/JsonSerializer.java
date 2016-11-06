@@ -70,9 +70,11 @@ public class JsonSerializer extends StdSerializer<EObject> implements IResponseS
 	}
 
 	protected JsonSerializerHelper getJsonSerializerHelper(EObject eObject) {
-		for (JsonSerializerHelper helper : jsonSerializerHelpers) {
-			if (helper.accept(eObject)) {
-				return helper;
+		if (jsonSerializerHelpers != null) {
+			for (JsonSerializerHelper helper : jsonSerializerHelpers) {
+				if (helper.accept(eObject)) {
+					return helper;
+				}
 			}
 		}
 		return null;
